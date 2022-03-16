@@ -41,11 +41,21 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
+        'client' => [
             'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+            'provider' => 'clients',
         ],
+
+        'restaurant' => [
+            'driver' => 'token',
+            'provider' => 'restaurants',
+        ],
+
+//        'api' => [
+//            'driver' => 'token',
+//            'provider' => 'clients',
+//            'hash' => false,
+//        ],
     ],
 
     /*
@@ -69,6 +79,16 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Client::class,
+        ],
+
+        'restaurants' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Restaurant::class,
         ],
 
         // 'users' => [

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -16,9 +15,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'phone', 'password', 'gender', 'd_o_b', 'region_id', 'role_name', 'status', 'api_token', 'pin_code'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -27,7 +25,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -35,5 +32,17 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'updated_at' => 'datetime:Y-m-d H:m:s'
     ];
+
+    public function region()
+    {
+        return $this->belongsTo('App\Models\Region');
+    }
+
+    public function notifications()
+    {
+        return $this->morphMany('App\Models\Notification', 'notifiable');
+    }
 }
