@@ -20,11 +20,12 @@ class AuthController extends Controller
             'name' => 'required|unique:clients',
             'email' => 'required|email|unique:clients',
             'phone' => 'required|unique:clients|digits:11',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|min:6',
             'region_id' => 'required|exists:regions,id',
             'address' => 'required',
 //            'image' => 'required|image|mimes:jpg,jpeg,png',
             'image' => 'required',
+            'is_active' => 'required',
         ];
         $validate = Validator::make($request->all(), $rules);
         if ($validate->fails()) {
@@ -66,7 +67,7 @@ class AuthController extends Controller
                     }
                     return responseJson(1, 'تم الدخول بنجاح', [
                         'api_token' => $client->api_token,
-                        'client' => $client->load('region.city', 'review', 'notifications')
+                        'client' => $client->load('region.city', 'review')
                     ]);
                 } else {
                     return responseJson(0, 'بيانات الدخول غير صحيحه');
@@ -134,7 +135,7 @@ class AuthController extends Controller
         $rules = [
             'email' => Rule::unique('clients')->ignore($request->user('client')->id),
             'phone' => Rule::unique('clients')->ignore($request->user('client')->id),
-            'password' => 'confirmed|min:6',
+            'password' => 'min:6',
         ];
         $validate = Validator::make(request()->all(), $rules);
         if ($validate->fails()) {

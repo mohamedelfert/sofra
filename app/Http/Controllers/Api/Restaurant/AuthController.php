@@ -21,16 +21,15 @@ class AuthController extends Controller
             'email' => 'required|unique:restaurants',
             'phone' => 'required|unique:restaurants|digits:11',
             'second_phone' => 'unique:restaurants|digits:11',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|min:6',
             'region_id' => 'required|exists:regions,id',
-            'category_id' => 'required|exists:categories,id',
             'minimum_order' => 'required',
             'delivery_fee' => 'required',
             'whatsapp' => 'digits:11',
 //            'image' => 'required|image|mimes:jpg,jpeg,png',
             'image' => 'required',
             'status' => 'required',
-            'activated' => 'required',
+            'is_active' => 'required',
         ];
         $validate = Validator::make($request->all(), $rules);
         if ($validate->fails()) {
@@ -67,12 +66,12 @@ class AuthController extends Controller
             $restaurant = Restaurant::where('email', request('email'))->first();
             if ($restaurant) {
                 if (Hash::check(request('password'), $restaurant->password)) {
-                    if ($restaurant->activated == 0) {
+                    if ($restaurant->is_active == 0) {
                         return responseJson(0, 'تم حظر حسابك .. اتصل بالادارة');
                     }
                     return responseJson(1, 'تم الدخول بنجاح', [
                         'api_token' => $restaurant->api_token,
-                        'restaurant' => $restaurant->load('region.city', 'categories', 'reviews', 'offers', 'items', 'orders', 'transactions', 'notifications')
+                        'restaurant' => $restaurant->load('region.city', 'categories', 'reviews', 'offers', 'items', 'orders', 'transactions')
                     ]);
                 } else {
                     return responseJson(0, 'بيانات الدخول غير صحيحه');
@@ -140,7 +139,7 @@ class AuthController extends Controller
         $rules = [
             'email' => Rule::unique('restaurants')->ignore($request->user('restaurant')->id),
             'phone' => Rule::unique('restaurants')->ignore($request->user('restaurant')->id),
-            'password' => 'confirmed|min:6',
+            'password' => 'min:6',
         ];
         $validate = Validator::make(request()->all(), $rules);
         if ($validate->fails()) {

@@ -39,7 +39,7 @@ class MainController extends Controller
 
     public function categories()
     {
-        $categories = Category::all();
+        $categories = Category::with('restaurant')->get();
         return responseJson(1, 'Success', $categories);
     }
 
@@ -67,13 +67,13 @@ class MainController extends Controller
             if ($request->has('status')) {
                 $q->where('status', $request->status);
             }
-        })->has('items')->with('region', 'categories')->where('activated', '1')->paginate(10);
+        })->has('items')->with('region', 'categories')->where('is_active', '1')->paginate(10);
         return responseJson(1, 'Success', $restaurants);
     }
 
     public function restaurant(Request $request)
     {
-        $restaurant = Restaurant::with('region', 'categories', 'items')->where('activated', '1')
+        $restaurant = Restaurant::with('region', 'categories', 'items')->where('is_active', '1')
             ->findOrFail($request->restaurant_id);
         return responseJson(1, 'Success', $restaurant);
     }
