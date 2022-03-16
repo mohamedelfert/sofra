@@ -49,6 +49,7 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function (){
 
         Route::group(['middleware' => 'auth:client'],function (){
             Route::post('profile','AuthController@profile');
+            Route::post('new-order','MainController@newOrder');
         });
 
     });

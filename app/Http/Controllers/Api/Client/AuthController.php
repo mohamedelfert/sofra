@@ -8,6 +8,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -23,8 +24,7 @@ class AuthController extends Controller
             'password' => 'required|min:6',
             'region_id' => 'required|exists:regions,id',
             'address' => 'required',
-//            'image' => 'required|image|mimes:jpg,jpeg,png',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpg,jpeg,png',
             'is_active' => 'required',
         ];
         $validate = Validator::make($request->all(), $rules);
@@ -36,10 +36,18 @@ class AuthController extends Controller
             $client->api_token = str::random(60);
             $client->save();
             if ($request->hasFile('image')) {
+//                $file = $request->file('image');
+//                $file_name = time() . $file->getClientOriginalName();
+//                $file->move(public_path() . '/uploads/clients/', $file_name);
+//                $client->image = 'uploads/clients/' . $file_name;
+//                $client->save();
+
+                $path = public_path();
+                $destinationPath = $path . '/uploads/clients/';
                 $file = $request->file('image');
                 $file_name = time() . $file->getClientOriginalName();
-                $file->move(public_path() . 'Uploads/Clients/' . $client->image, $file_name);
-                $client->image = 'Uploads/Clients/' . $file_name;
+                $file->move($destinationPath.$client->name, $file_name);
+                $client->image = 'uploads/clients/' . $file_name;
                 $client->save();
             }
             return responseJson(1, 'تم ألأضافه بنجاح', [
@@ -136,6 +144,7 @@ class AuthController extends Controller
             'email' => Rule::unique('clients')->ignore($request->user('client')->id),
             'phone' => Rule::unique('clients')->ignore($request->user('client')->id),
             'password' => 'min:6',
+            'image' => 'image|mimes:jpg,jpeg,png',
         ];
         $validate = Validator::make(request()->all(), $rules);
         if ($validate->fails()) {
@@ -147,6 +156,19 @@ class AuthController extends Controller
             $client_login->password = bcrypt($request->password);
         }
         $client_login->save();
+        if ($request->hasFile('image')) {
+            $client_login->where('api_token',$request->api_token)->first();
+            if (!empty($client_login->name)){
+                Storage::disk('public_path')->deleteDirectory('clients/'.$client_login->name);
+            }
+            $path = public_path();
+            $destinationPath = $path . '/uploads/clients/';
+            $file = $request->file('image');
+            $file_name = time() . $file->getClientOriginalName();
+            $file->move($destinationPath.$client_login->name, $file_name);
+            $client_login->image = 'uploads/clients/' . $file_name;
+            $client_login->save();
+        }
         $data = ['client' => $request->user('client')->fresh()->load('region.city')];
         return responseJson(1, 'تم تحديث البيانات بنجاح', $data);
     }
