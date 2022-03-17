@@ -11,18 +11,20 @@ class CreateOrdersTable extends Migration {
 			$table->increments('id');
 			$table->text('address');
 			$table->text('notes')->nullable();
-			$table->decimal('cost');
-			$table->decimal('delivery_cost');
-			$table->decimal('total');
+			$table->decimal('cost')->default(0);
+			$table->decimal('delivery_cost')->default(0);
+			$table->decimal('total')->default(0);
 			$table->integer('restaurant_id')->unsigned();
 			$table->integer('payment_method_id')->unsigned();
-			$table->datetime('delivery_at');
+			$table->string('delivery_at');
 			$table->enum('status', array('pending', 'accepted', 'rejected'));
-			$table->decimal('commission');
+			$table->decimal('commission')->default(0);
 			$table->boolean('client_delivery_confirm')->default(0);
 			$table->boolean('restaurant_delivery_confirm')->default(0);
 			$table->enum('cart', array('created', 'incompleted', 'completed', 'ordered'));
-			$table->timestamps();
+            $table->integer('client_id')->unique()->unsigned();
+            $table->decimal('net')->default(0);
+            $table->timestamps();
 		});
 	}
 
