@@ -12,6 +12,7 @@ class CreateTransactionsTable extends Migration {
 			$table->decimal('amount');
 			$table->text('notes');
 			$table->integer('restaurant_id')->unsigned();
+			$table->datetime('date');
 			$table->timestamps();
 		});
 	}

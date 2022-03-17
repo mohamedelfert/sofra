@@ -20,7 +20,7 @@ class Restaurant extends Authenticatable
 
     public function categories()
     {
-        return $this->belongsToMany('App\Models\Category');
+        return $this->belongsToMany('App\Models\Category', 'category_restaurant', 'restaurant_id', 'category_id');
     }
 
     public function reviews()

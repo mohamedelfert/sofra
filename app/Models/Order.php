@@ -25,7 +25,7 @@ class Order extends Model
 
     public function items()
     {
-        return $this->belongsToMany('App\Models\Item');
+        return $this->belongsToMany('App\Models\Item')->withPivot('price','quantity','notes');
     }
 
     public function client()
