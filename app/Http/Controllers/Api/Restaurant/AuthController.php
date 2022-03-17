@@ -8,6 +8,7 @@ use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -26,8 +27,7 @@ class AuthController extends Controller
             'minimum_order' => 'required',
             'delivery_fee' => 'required',
             'whatsapp' => 'digits:11',
-//            'image' => 'required|image|mimes:jpg,jpeg,png',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpg,jpeg,png',
             'status' => 'required',
             'is_active' => 'required',
         ];
@@ -40,10 +40,12 @@ class AuthController extends Controller
             $restaurant->api_token = str::random(60);
             $restaurant->save();
             if ($request->hasFile('image')) {
+                $path = public_path();
+                $destinationPath = $path . '/uploads/restaurants/';
                 $file = $request->file('image');
                 $file_name = time() . $file->getClientOriginalName();
-                $file->move(public_path() . 'Uploads/Restaurants/' . $restaurant->image, $file_name);
-                $restaurant->image = 'Uploads/Restaurants/' . $file_name;
+                $file->move($destinationPath.$restaurant->name, $file_name);
+                $restaurant->image = 'uploads/restaurants/' . $file_name;
                 $restaurant->save();
             }
             return responseJson(1, 'تم ألأضافه بنجاح', [
@@ -140,6 +142,7 @@ class AuthController extends Controller
             'email' => Rule::unique('restaurants')->ignore($request->user('restaurant')->id),
             'phone' => Rule::unique('restaurants')->ignore($request->user('restaurant')->id),
             'password' => 'min:6',
+            'image' => 'image|mimes:jpg,jpeg,png',
         ];
         $validate = Validator::make(request()->all(), $rules);
         if ($validate->fails()) {
@@ -151,6 +154,19 @@ class AuthController extends Controller
             $restaurant_login->password = bcrypt($request->password);
         }
         $restaurant_login->save();
+        if ($request->hasFile('image')) {
+            $restaurant_login->where('api_token',$request->api_token)->first();
+            if (!empty($restaurant_login->name)){
+                Storage::disk('public_path')->deleteDirectory('restaurants/'.$restaurant_login->name);
+            }
+            $path = public_path();
+            $destinationPath = $path . '/uploads/restaurants/';
+            $file = $request->file('image');
+            $file_name = time() . $file->getClientOriginalName();
+            $file->move($destinationPath.$restaurant_login->name, $file_name);
+            $restaurant_login->image = 'uploads/restaurants/' . $file_name;
+            $restaurant_login->save();
+        }
         $data = ['restaurant' => $request->user('restaurant')->fresh()->load('region.city')];
         return responseJson(1, 'تم تحديث البيانات بنجاح', $data);
     }
