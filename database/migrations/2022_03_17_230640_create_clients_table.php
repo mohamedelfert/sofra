@@ -16,7 +16,7 @@ class CreateClientsTable extends Migration {
 			$table->integer('region_id')->unsigned();
 			$table->string('address');
 			$table->string('image');
-			$table->string('api_token', 60)->unique()->nullable();
+//			$table->string('api_token', 60)->unique()->nullable();
 			$table->string('pin_code')->nullable();
 			$table->tinyInteger('is_active')->default('1');
 			$table->timestamps();

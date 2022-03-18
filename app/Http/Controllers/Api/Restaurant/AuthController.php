@@ -35,10 +35,20 @@ class AuthController extends Controller
         if ($validate->fails()) {
             return responseJson(2, $validate->errors());
         } else {
-            request()->merge(['password' => bcrypt(request('password'))]);
-            $restaurant = Restaurant::create(request()->all());
-            $restaurant->api_token = str::random(60);
-            $restaurant->save();
+            $data['name'] = $request->name;
+            $data['email'] = $request->email;
+            $data['phone'] = $request->phone;
+            $data['second_phone'] = $request->second_phone;
+            $data['password'] = bcrypt($request->password);
+            $data['region_id'] = $request->region_id;
+            $data['minimum_order'] = $request->minimum_order;
+            $data['delivery_fee'] = $request->delivery_fee;
+            $data['whatsapp'] = $request->whatsapp;
+            $data['image'] = $request->image;
+            $data['status'] = $request->status;
+            $data['is_active'] = $request->is_active;
+            $restaurant = Restaurant::create($data);
+            $token = $restaurant->createToken('API Token')->accessToken;
             if ($request->hasFile('image')) {
                 $path = public_path();
                 $destinationPath = $path . '/uploads/restaurants/';
@@ -48,9 +58,10 @@ class AuthController extends Controller
                 $restaurant->image = 'uploads/restaurants/' . $file_name;
                 $restaurant->save();
             }
+            $restaurant->categories()->attach($request->categories);
             return responseJson(1, 'تم ألأضافه بنجاح', [
-                'api_token' => $restaurant->api_token,
-                'data' => $restaurant,
+                'token' => $token,
+                'data' => $restaurant->load('region.city', 'categories'),
             ]);
         }
     }
@@ -71,8 +82,9 @@ class AuthController extends Controller
                     if ($restaurant->is_active == 0) {
                         return responseJson(0, 'تم حظر حسابك .. اتصل بالادارة');
                     }
+                    $token = auth('restaurant')->user()->createToken('API Token')->accessToken;
                     return responseJson(1, 'تم الدخول بنجاح', [
-                        'api_token' => $restaurant->api_token,
+                        'token' => $token,
                         'restaurant' => $restaurant->load('region.city', 'categories', 'reviews', 'offers', 'items', 'orders', 'transactions')
                     ]);
                 } else {
@@ -155,7 +167,7 @@ class AuthController extends Controller
         }
         $restaurant_login->save();
         if ($request->hasFile('image')) {
-            $restaurant_login->where('api_token',$request->api_token)->first();
+            $restaurant_login->where('email',$request->email)->first();
             if (!empty($restaurant_login->name)){
                 Storage::disk('public_path')->deleteDirectory('restaurants/'.$restaurant_login->name);
             }

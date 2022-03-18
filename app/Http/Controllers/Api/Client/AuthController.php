@@ -33,8 +33,9 @@ class AuthController extends Controller
         } else {
             request()->merge(['password' => bcrypt(request('password'))]);
             $client = Client::create(request()->all());
-            $client->api_token = str::random(60);
-            $client->save();
+//            $client->api_token = str::random(60);
+//            $client->save();
+            $token = $client->createToken('API Token')->accessToken;
             if ($request->hasFile('image')) {
 //                $file = $request->file('image');
 //                $file_name = time() . $file->getClientOriginalName();
@@ -51,7 +52,7 @@ class AuthController extends Controller
                 $client->save();
             }
             return responseJson(1, 'تم ألأضافه بنجاح', [
-                'api_token' => $client->api_token,
+                'token' => $token,
                 'data' => $client,
             ]);
         }
@@ -73,8 +74,9 @@ class AuthController extends Controller
                     if ($client->is_active == 0) {
                         return responseJson(0, 'تم حظر حسابك .. اتصل بالادارة');
                     }
+                    $token = auth('client')->user()->createToken('API Token')->accessToken;
                     return responseJson(1, 'تم الدخول بنجاح', [
-                        'api_token' => $client->api_token,
+                        'token' => $token,
                         'client' => $client->load('region.city', 'review')
                     ]);
                 } else {
@@ -157,7 +159,7 @@ class AuthController extends Controller
         }
         $client_login->save();
         if ($request->hasFile('image')) {
-            $client_login->where('api_token',$request->api_token)->first();
+            $client_login->where('email',$request->email)->first();
             if (!empty($client_login->name)){
                 Storage::disk('public_path')->deleteDirectory('clients/'.$client_login->name);
             }

@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('region_id')->unsigned();
             $table->string('role_name');
             $table->string('status');
-            $table->string('api_token', 60)->unique()->nullable();
+//            $table->string('api_token', 60)->unique()->nullable();
             $table->string('pin_code')->nullable();
             $table->rememberToken();
             $table->timestamps();

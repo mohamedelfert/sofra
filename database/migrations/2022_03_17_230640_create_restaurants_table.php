@@ -21,7 +21,7 @@ class CreateRestaurantsTable extends Migration {
 			$table->string('image');
 			$table->enum('status', array('open', 'close'));
 			$table->tinyInteger('is_active')->default('1');
-			$table->string('api_token', 60)->unique()->nullable();
+//			$table->string('api_token', 60)->unique()->nullable();
 			$table->string('pin_code')->nullable();
 			$table->timestamps();
 		});

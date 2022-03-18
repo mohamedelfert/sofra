@@ -42,12 +42,12 @@ return [
         ],
 
         'client' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'clients',
         ],
 
         'restaurant' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'restaurants',
         ],
 
