@@ -65,6 +65,16 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function (){
 
         Route::group(['middleware' => 'auth:restaurant'],function (){
             Route::post('profile','AuthController@profile');
+
+            Route::post('my-items','MainController@myItems');
+            Route::post('add-item','MainController@addItem');
+            Route::post('update-item','MainController@updateItem');
+            Route::post('delete-item','MainController@deleteItem');
+
+            Route::post('my-offers','MainController@myOffers');
+            Route::post('add-offer','MainController@addOffer');
+            Route::post('update-offer','MainController@updateOffer');
+            Route::post('delete-offer','MainController@deleteOffer');
         });
     });
 
