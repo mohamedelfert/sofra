@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration {
 			$table->decimal('commission')->default('0');
 			$table->boolean('client_delivery_confirm')->default(0);
 			$table->boolean('restaurant_delivery_confirm')->default(0);
-			$table->integer('client_id')->unique()->unsigned();
+			$table->integer('client_id')->unsigned();
 			$table->decimal('net')->default('0');
 			$table->timestamps();
 		});
