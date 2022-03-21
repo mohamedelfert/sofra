@@ -51,6 +51,9 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function (){
             Route::post('profile','AuthController@profile');
 
             Route::post('new-order','MainController@newOrder');
+            Route::post('my-orders','MainController@myOrders');
+            Route::post('show-order','MainController@showOrder');
+            Route::post('latest-order','MainController@latestOrder');
         });
 
     });

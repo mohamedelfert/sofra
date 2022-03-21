@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Item;
+use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -93,5 +94,33 @@ class MainController extends Controller
             $order->delete();
             return responseJson(0, 'يجب أن يكون الطلب أكثر من ' . $restaurant->minimum_order . ' جنيه');
         }
+    }
+
+    public function myOrders(Request $request)
+    {
+        $my_orders = $request->user('client')->orders()->where(function ($order) use ($request) {
+            if ($request->has('status') && $request->status == 'accepted') {
+                $order->where('status', '=', 'accepted');
+            } elseif ($request->has('status') && $request->status == 'rejected') {
+                $order->where('status', '=', 'rejected');
+            } elseif ($request->has('status') && $request->status == 'completed') {
+                $order->where('status', '=', 'completed');
+            }
+        })->with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')->latest()->paginate(10);
+        return responseJson('1', $my_orders);
+    }
+
+    public function showOrder(Request $request)
+    {
+        $order = Order::with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')->find($request->order_id);
+        return responseJson('1', $order);
+    }
+
+    public function latestOrder(Request $request)
+    {
+        $latest_order = $request->user('client')->orders()
+                                 ->with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')
+                                 ->latest()->first();
+        return responseJson('1', $latest_order);
     }
 }
