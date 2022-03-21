@@ -3,12 +3,95 @@
 namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Item;
+use App\Models\Restaurant;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MainController extends Controller
 {
     public function newOrder(Request $request)
     {
-        echo 'ok';
+        $rules = [
+            'restaurant_id' => 'required|exists:restaurants,id',
+            'items.*.item_id' => 'required|exists:items,id',
+            'items.*.quantity' => 'required',
+            'address' => 'required',
+            'payment_method_id' => 'required|exists:payment_methods,id',
+            'phone' => 'required|digits:11',
+            'name' => 'required',
+        ];
+        $validate = Validator::make($request->all(), $rules);
+        if ($validate->fails()) {
+            return responseJson(2, $validate->errors());
+        }
+
+        // get restaurant by id
+        $restaurant = Restaurant::find($request->restaurant_id);
+
+        // check restaurant status
+        if ($restaurant->status === 'close') {
+            return responseJson('0', 'عذرا المطعم مغلق لا يمكن تنفيذ طلبك');
+        }
+
+        // order create
+        $order = $request->user('client')->orders()->create([
+            'address' => $request->address,
+            'notes' => $request->notes,
+            'restaurant_id' => $request->restaurant_id,
+            'payment_method_id' => $request->payment_method_id,
+            'delivery_at' => '45 minute',
+            'status' => 'pending',
+        ]);
+
+        $cost = 0;
+        $delivery_cost = $restaurant->delivery_fee;
+
+        foreach ($request->items as $i) {
+            // get item by id
+            $item = Item::find($i['item_id']);
+            $readyItem = [
+                $i['item_id'] => [
+                    'quantity' => $i['quantity'],
+                    'price' => $item->price,
+                    'notes' => (isset($i['notes'])) ? $i['notes'] : '',
+                ]
+            ];
+            $order->items()->attach($readyItem);
+            $cost += ($item->price * $i['quantity']);
+        }
+
+        // check if cost for order >= restaurant minimum_order
+        if ($cost >= $restaurant->minimum_order) {
+            $total = $cost + $delivery_cost;
+            $settings = Setting::find(1);
+            $commission = $settings->commission * $cost; // commission in settings looks like (0.00)
+            $net = $total - $commission;
+
+            // update order details
+            $update = $order->update([
+                'cost' => $cost,
+                'delivery_cost' => $delivery_cost,
+                'total' => $total,
+                'commission' => $commission,
+                'net' => $net,
+            ]);
+
+            // notification create for restaurant
+            $restaurant->notifications()->create([
+                'title' => 'طلب جديد',
+                'content' => 'لديك طلب جديد ' . $request->user('client')->name,
+                'notificationable_id' => $request->user('client')->id,
+                'order_id' => $order->id,
+            ]);
+
+            $data = ['order' => $order->fresh()->load('items')];
+            return responseJson(1, 'تم الطلب بنجاح', $data);
+        } else {
+//            $order->items()->delete();
+            $order->delete();
+            return responseJson(0, 'يجب أن يكون الطلب أكثر من ' . $restaurant->minimum_order . ' جنيه');
+        }
     }
 }

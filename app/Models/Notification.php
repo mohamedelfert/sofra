@@ -12,7 +12,7 @@ class Notification extends Model
     protected $fillable = array('title', 'content', 'notificationable_id', 'notificationable_type', 'is_read', 'order_id');
     protected $casts = ['created_at' => 'datetime:Y-m-d H:m:s', 'updated_at' => 'datetime:Y-m-d H:m:s'];
 
-    public function notifiable()
+    public function notificationable()
     {
         return $this->morphTo();
     }

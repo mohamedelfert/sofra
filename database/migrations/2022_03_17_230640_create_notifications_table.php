@@ -13,8 +13,8 @@ class CreateNotificationsTable extends Migration {
 			$table->text('content');
 			$table->integer('notificationable_id');
 			$table->string('notificationable_type');
-			$table->boolean('is_read');
-			$table->integer('order_id')->unique()->unsigned();
+			$table->boolean('is_read')->default(0);
+			$table->integer('order_id')->unsigned();
 			$table->timestamps();
 		});
 	}

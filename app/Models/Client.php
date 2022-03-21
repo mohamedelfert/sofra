@@ -33,7 +33,7 @@ class Client extends Authenticatable
 
     public function notifications()
     {
-        return $this->morphMany('App\Models\Notification', 'notifiable');
+        return $this->morphMany('App\Models\Notification', 'notificationable');
     }
 
 }
