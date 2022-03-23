@@ -57,6 +57,10 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function (){
             Route::post('my-orders','MainController@myOrders');
             Route::post('show-order','MainController@showOrder');
             Route::post('latest-order','MainController@latestOrder');
+            Route::post('received-order','MainController@receivedOrder');
+            Route::post('refused-order','MainController@refusedOrder');
+
+            Route::post('restaurant-review','MainController@review');
         });
 
     });
