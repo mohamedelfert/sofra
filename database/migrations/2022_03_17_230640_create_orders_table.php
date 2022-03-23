@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->integer('restaurant_id')->unsigned();
             $table->integer('payment_method_id')->unsigned();
             $table->string('delivery_at');
-            $table->enum('status', array('pending', 'accepted', 'rejected', 'completed'));
+            $table->enum('status', array('pending', 'accepted', 'rejected', 'completed', 'canceled'));
             $table->decimal('commission')->default('0');
             $table->boolean('client_delivery_confirm')->default(0);
             $table->boolean('restaurant_delivery_confirm')->default(0);

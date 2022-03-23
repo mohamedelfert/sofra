@@ -20,8 +20,6 @@ class MainController extends Controller
             'items.*.quantity' => 'required',
             'address' => 'required',
             'payment_method_id' => 'required|exists:payment_methods,id',
-            'phone' => 'required|digits:11',
-            'name' => 'required',
         ];
         $validate = Validator::make($request->all(), $rules);
         if ($validate->fails()) {
@@ -79,15 +77,27 @@ class MainController extends Controller
                 'net' => $net,
             ]);
 
-            // notification create for restaurant
-            $restaurant->notifications()->create([
+            // notification create for restaurant In Database
+            $notification = $restaurant->notifications()->create([
                 'title' => 'طلب جديد',
-                'content' => 'لديك طلب جديد ' . $request->user('client')->name,
+                'content' => 'لديك طلب جديد من العميل ' . $request->user('client')->name,
                 'notificationable_id' => $request->user('client')->id,
                 'order_id' => $order->id,
             ]);
 
-            $data = ['order' => $order->fresh()->load('items')];
+            // Send Notification To Mobile By Using Firebase ( google FCM )
+//            $tokens = $request->ids;
+            $tokens = ['0' => 'fSamI-TDQFCmAoZCBaMhmE:APA91bFAo08rPwdMHDNyu7qR2Vyizksg60FsmTtkRgAWyK9mjunqQci8EjLMaQsoMBJHz9xVCcIlccn4wHmw9EZKgz_4Gq_UwumZptGS62YiJJNppuY1kebDZH24MV6j4mqifU6-eoN8'];
+            $title = $notification->title;
+            $body = $notification->content;
+            $data = [
+                'order_id' => $order->id,
+                'user_type' => 'restaurant',
+            ];
+            $send = notifyByFirebase($title, $body, $tokens, $data, true);
+            info("firebase result: " . $send);
+
+            $data = ['order' => $order->fresh()->load('items', 'restaurant.region', 'restaurant.categories', 'client')];
             return responseJson(1, 'تم الطلب بنجاح', $data);
         } else {
 //            $order->items()->delete();
@@ -119,8 +129,8 @@ class MainController extends Controller
     public function latestOrder(Request $request)
     {
         $latest_order = $request->user('client')->orders()
-                                 ->with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')
-                                 ->latest()->first();
+            ->with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')
+            ->latest()->first();
         return responseJson('1', $latest_order);
     }
 }

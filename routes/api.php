@@ -39,6 +39,9 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function (){
 
     Route::get('settings','MainController@settings');
 
+    // test notification
+    Route::post('test-notification','MainController@testNotification');
+
     //================================ Clients  ================================//
 
     Route::group(['prefix' => 'client','namespace' => 'client'],function (){

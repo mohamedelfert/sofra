@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Contact;
 use App\Models\Item;
 use App\Models\Offer;
+use App\Models\Order;
 use App\Models\PaymentMethod;
 use App\Models\Region;
 use App\Models\Restaurant;
@@ -148,6 +149,25 @@ class MainController extends Controller
         }
 
         return responseJson(1, 'Success', $settings);
+    }
+
+    public function testNotification(Request $request)
+    {
+        /*
+        firebase
+        */
+        $tokens = $request->ids;
+        $title = $request->title;
+        $body = $request->body;
+        $data = Order::first();
+        $send = notifyByFirebase($title, $body, $tokens, $data, true);
+        info("firebase result: " . $send);
+
+        return response()->json([
+            'status' => 1,
+            'msg' => 'تم الإرسال بنجاح',
+            'send' => json_decode($send)
+        ]);
     }
 
 }
