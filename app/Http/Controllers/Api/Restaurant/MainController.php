@@ -327,6 +327,7 @@ class MainController extends Controller
         }
     }
 
+    /****************************************** Orders ****************************************************/
     public function restaurantStatus(Request $request)
     {
         $rules = ['status' => 'required|in:open,close'];
@@ -338,11 +339,26 @@ class MainController extends Controller
         return responseJson(1, $request->user('restaurant'));
     }
 
-    /****************************************** Orders ****************************************************/
-
     public function notifications(Request $request)
     {
         $notifications = $request->user('restaurant')->notifications()->with('order.restaurant')->latest()->paginate(10);
         return responseJson(1, $notifications);
+    }
+
+    public function commission(Request $request)
+    {
+        $ordersCompletedCount = $request->user('restaurant')->orders()->where('status', 'completed')->count();
+        $ordersCompletedCommission = $request->user('restaurant')->orders()->where('status', 'completed')->sum('commission');
+        $ordersCompletedCost = $request->user('restaurant')->orders()->where('status', 'completed')->sum('cost');
+        $restaurantTransactions = $request->user('restaurant')->transactions()->sum('amount');
+        $remaining = $ordersCompletedCommission - $restaurantTransactions;
+        $commission = [
+            'orderCount' => $ordersCompletedCount,
+            'orderCompletedCommission' => $ordersCompletedCommission,
+            'cost' => $ordersCompletedCost,
+            'transactions' => $restaurantTransactions,
+            'remaining' => $remaining
+        ];
+        return responseJson(1, 'success', $commission);
     }
 }

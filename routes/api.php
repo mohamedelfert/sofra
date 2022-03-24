@@ -74,7 +74,6 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function (){
         Route::post('login','AuthController@login');
         Route::post('reset-password','AuthController@resetPassword');
         Route::post('new-password','AuthController@newPassword');
-        Route::post('profile','AuthController@profile');
 
         Route::group(['middleware' => 'auth:restaurant'],function (){
             Route::post('profile','AuthController@profile');
@@ -94,9 +93,12 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function (){
             Route::post('accepted-order','MainController@acceptedOrder');
             Route::post('rejected-order','MainController@rejectedOrder');
             Route::post('confirm-order','MainController@confirmOrder');
+
             Route::post('restaurant-status','MainController@restaurantStatus');
 
             Route::get('notifications','MainController@notifications');
+
+            Route::get('commission','MainController@commission');
         });
     });
 
