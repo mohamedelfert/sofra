@@ -114,6 +114,12 @@ class MainController extends Controller
                 $order->where('status', '=', 'rejected');
             } elseif ($request->has('status') && $request->status == 'completed') {
                 $order->where('status', '=', 'completed');
+            } elseif ($request->has('status') && $request->status == 'received') {
+                $order->where('status', '=', 'received');
+            } elseif ($request->has('status') && $request->status == 'refused') {
+                $order->where('status', '=', 'refused');
+            } elseif ($request->has('status') && $request->status == 'pending') {
+                $order->where('status', '=', 'pending');
             }
         })->with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')->latest()->paginate(10);
         return responseJson('1', $my_orders);
@@ -247,5 +253,11 @@ class MainController extends Controller
         $request->merge(['client_id' => $request->user('client')->id]);
         $review = $restaurant->reviews()->create($request->all());
         return responseJson(1, 'تم أضافه المراجعة بنجاح', $review);
+    }
+
+    public function notifications(Request $request)
+    {
+        $notifications = $request->user('client')->notifications()->with('order.restaurant.region.city','order.client.region.city')->latest()->paginate(10);
+        return responseJson(1, $notifications);
     }
 }

@@ -61,6 +61,8 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function (){
             Route::post('refused-order','MainController@refusedOrder');
 
             Route::post('restaurant-review','MainController@review');
+
+            Route::get('notifications','MainController@notifications');
         });
 
     });
@@ -86,6 +88,15 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function (){
             Route::post('add-offer','MainController@addOffer');
             Route::post('update-offer','MainController@updateOffer');
             Route::post('delete-offer','MainController@deleteOffer');
+
+            Route::post('my-orders','MainController@myOrders');
+            Route::post('show-order','MainController@showOrder');
+            Route::post('accepted-order','MainController@acceptedOrder');
+            Route::post('rejected-order','MainController@rejectedOrder');
+            Route::post('confirm-order','MainController@confirmOrder');
+            Route::post('restaurant-status','MainController@restaurantStatus');
+
+            Route::get('notifications','MainController@notifications');
         });
     });
 
