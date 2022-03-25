@@ -37,6 +37,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::resource('regions', 'RegionController');
     Route::resource('categories', 'CategoryController');
 
+    Route::resource('restaurants-payment', 'RestaurantsPaymentController');
+
+    Route::resource('offers', 'OfferController');
+    Route::get('filter-offers', 'OfferController@filter')->name('offers.filter');
+
+    Route::resource('contacts', 'ContactController');
+    Route::get('filter-contacts', 'ContactController@filter')->name('contacts.filter');
+
+    Route::resource('settings', 'SettingController');
+
     //================= this route for change language ( ar - en ) ===================//
     Route::get('lang/{lang}', function ($lang) {
         session()->has('lang') ? session()->forget('lang') : '';

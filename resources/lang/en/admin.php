@@ -26,6 +26,13 @@ return [
     'edit_category' => 'Edit Category',
     'delete_category' => 'Delete Category',
 
+    'offer_title' => 'Title',
+    'restaurant_name' => 'Restaurant Name',
+    'offer_start' => 'Start At',
+    'offer_end' => 'End At',
+    'offer_status' => 'Status',
+    'offer_description' => 'Description',
+
     'user_name' => 'Name',
     'add_user' => 'Add New User',
     'user_email' => 'User E-mail',
@@ -44,7 +51,7 @@ return [
     'delete_role' => 'Delete Role',
     'edit_role' => 'Role Edit',
 
-    'contact_subject' => 'Subject',
+    'contact_type' => 'Type',
     'contact_message' => 'Message',
     'contact_name' => 'Name',
     'contact_email' => 'E-mail',

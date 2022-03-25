@@ -122,6 +122,40 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item {{ active_menu('payments')[0] }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-eye"></i>
+                        <p>
+                            {{ trans('main.payments') }}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" {{ active_menu('payments')[1] }}>
+                        <li class="nav-item">
+                            <a href="{{ adminUrl('restaurants-payment') }}" class="nav-link">
+                                <i class="fas fa-list"></i>
+                                <p>{{ trans('main.payments_list') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item {{ active_menu('offers')[0] }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-eye"></i>
+                        <p>
+                            {{ trans('main.offers') }}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" {{ active_menu('offers')[1] }}>
+                        <li class="nav-item">
+                            <a href="{{ adminUrl('offers') }}" class="nav-link">
+                                <i class="fas fa-list"></i>
+                                <p>{{ trans('main.offers_list') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 {{--                <li class="nav-item {{ active_menu('users')[0] }}">--}}
 {{--                    <a href="#" class="nav-link">--}}
 {{--                        <i class="fas fa-user-shield"></i>--}}
@@ -145,18 +179,18 @@
 {{--                        </li>--}}
 {{--                    </ul>--}}
 {{--                </li>--}}
-{{--                <li class="nav-item {{ active_menu('contacts')[0] }}">--}}
-{{--                    <a href="{{ adminUrl('contacts') }}" class="nav-link">--}}
-{{--                        <i class="nav-icon fas fa-envelope-open"></i>--}}
-{{--                        <p>{{ trans('main.contacts') }}</p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="nav-item {{ active_menu('settings')[0] }}">--}}
-{{--                    <a href="{{ adminUrl('settings') }}" class="nav-link">--}}
-{{--                        <i class="nav-icon fas fa-cogs"></i>--}}
-{{--                        <p>{{ trans('main.settings') }}</p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                <li class="nav-item {{ active_menu('contacts')[0] }}">
+                    <a href="{{ adminUrl('contacts') }}" class="nav-link">
+                        <i class="nav-icon fas fa-envelope-open"></i>
+                        <p>{{ trans('main.contacts') }}</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ active_menu('settings')[0] }}">
+                    <a href="{{ adminUrl('settings') }}" class="nav-link">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>{{ trans('main.settings') }}</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
