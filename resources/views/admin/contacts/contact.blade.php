@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="desc">{{ trans('admin.contact_message') }}</label>
-                                    <textarea class="form-control" name="message" id="message" rows="6" disabled>{{ $contact->message }}ه</textarea>
+                                    <textarea class="form-control" name="message" id="message" rows="6" disabled>{{ $contact->message }}</textarea>
                                 </div>
                             </form>
                             <div class="text-center">

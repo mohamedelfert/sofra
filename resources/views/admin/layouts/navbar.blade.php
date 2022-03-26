@@ -122,19 +122,19 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ active_menu('payments')[0] }}">
+                <li class="nav-item {{ active_menu('transactions')[0] }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-eye"></i>
                         <p>
-                            {{ trans('main.payments') }}
+                            {{ trans('main.transactions') }}
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview" {{ active_menu('payments')[1] }}>
+                    <ul class="nav nav-treeview" {{ active_menu('transactions')[1] }}>
                         <li class="nav-item">
-                            <a href="{{ adminUrl('restaurants-payment') }}" class="nav-link">
+                            <a href="{{ adminUrl('transactions') }}" class="nav-link">
                                 <i class="fas fa-list"></i>
-                                <p>{{ trans('main.payments_list') }}</p>
+                                <p>{{ trans('main.transactions_list') }}</p>
                             </a>
                         </li>
                     </ul>

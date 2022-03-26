@@ -26,6 +26,13 @@ return [
     'edit_category' => 'Edit Category',
     'delete_category' => 'Delete Category',
 
+    'add_transaction' => 'Add Transaction',
+    'edit_transaction' => 'Edit Transaction',
+    'delete_transaction' => 'Delete Transaction',
+    'amount' => 'Amount',
+    'notes' => 'Notes',
+    'date' => 'Date',
+
     'offer_title' => 'Title',
     'restaurant_name' => 'Restaurant Name',
     'offer_start' => 'Start At',
@@ -60,7 +67,7 @@ return [
     'contact_show' => 'Contact Show',
     'delete_contact' => 'Delete Contact',
 
-    'notification_setting_text' => 'Notification Setting Text',
+    'commission_text' => 'Commission Text',
     'about_app' => 'About App',
     'phone' => 'Phone',
     'email' => 'E-mail',

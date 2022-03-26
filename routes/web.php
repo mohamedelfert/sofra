@@ -37,7 +37,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::resource('regions', 'RegionController');
     Route::resource('categories', 'CategoryController');
 
-    Route::resource('restaurants-payment', 'RestaurantsPaymentController');
+    Route::resource('transactions', 'TransactionController');
+    Route::get('filter-transactions', 'TransactionController@filter')->name('transactions.filter');
 
     Route::resource('offers', 'OfferController');
     Route::get('filter-offers', 'OfferController@filter')->name('offers.filter');
