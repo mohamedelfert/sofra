@@ -24,6 +24,8 @@ return [
     'payment_methods_list' => 'Payment Methods List',
     'clients' => 'Clients',
     'clients_list' => 'Clients List',
+    'orders' => 'Orders',
+    'orders_list' => 'Orders List',
     'users' => 'Users & Permissions',
     'users_list' => 'Users List',
     'roles_list' => 'Roles List',

@@ -43,7 +43,7 @@ class ClientController extends Controller
         return view('admin.clients.index', compact('title', 'clients','start_at','end_at'));
     }
 
-    public function statusFilter(Request $request)
+    public function activeFilter(Request $request)
     {
         $id = $request->id;
         $clients = Client::select('*')->where('is_active',$id)->get();

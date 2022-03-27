@@ -53,7 +53,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::get('filter-clients', 'ClientController@filter')->name('clients.filter');
     Route::get('activate/{id}', 'ClientController@activate')->name('activate');
     Route::get('deactivate/{id}', 'ClientController@deactivate')->name('deactivate');
-    Route::post('status-filter', 'ClientController@statusFilter')->name('clients.status-filter');
+    Route::post('active-filter', 'ClientController@activeFilter')->name('clients.active-filter');
+
+    Route::resource('orders', 'OrderController');
+    Route::get('filter-orders', 'OrderController@filter')->name('orders.filter');
+    Route::post('filter-status', 'OrderController@filterStatus')->name('orders.filter-status');
+    Route::get('/print_order/{id}', 'OrderController@print_order');
 
     Route::resource('payment-methods', 'PaymentMethodsController');
 

@@ -8,7 +8,7 @@
 
                     <!-- This Form For Filter -->
                     <div style="margin-bottom: 10px;float: left">
-                        <form action="{{ route('clients.status-filter') }}" method="POST" class="d-inline-block">
+                        <form action="{{ route('clients.active-filter') }}" method="POST" class="d-inline-block">
                             {{ csrf_field() }}
                             <select class="custom-select mr-sm-2" name="id" data-style="btn-info" onchange="this.form.submit()">
                                 <option value="" selected disabled>اختر الحالة</option>
