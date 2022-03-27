@@ -55,7 +55,7 @@ class AuthController extends Controller
                 $file = $request->file('image');
                 $file_name = time() . $file->getClientOriginalName();
                 $file->move($destinationPath.$restaurant->name, $file_name);
-                $restaurant->image = 'uploads/restaurants/' . $file_name;
+                $restaurant->image = 'uploads/restaurants/' . $restaurant->name .'/'. $file_name;
                 $restaurant->save();
             }
             $restaurant->categories()->attach($request->categories);
@@ -176,7 +176,7 @@ class AuthController extends Controller
             $file = $request->file('image');
             $file_name = time() . $file->getClientOriginalName();
             $file->move($destinationPath.$restaurant_login->name, $file_name);
-            $restaurant_login->image = 'uploads/restaurants/' . $file_name;
+            $restaurant_login->image = 'uploads/restaurants/' . $restaurant_login->name .'/'. $file_name;
             $restaurant_login->save();
         }
         $data = ['restaurant' => $request->user('restaurant')->fresh()->load('region.city')];

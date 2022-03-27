@@ -43,7 +43,7 @@ class MainController extends Controller
             $file = $request->file('image');
             $file_name = time() . $file->getClientOriginalName();
             $file->move($destinationPath . $item->name, $file_name);
-            $item->update(['image' => 'uploads/items/' . $file_name]);
+            $item->update(['image' => 'uploads/items/' . $item->name .'/'. $file_name]);
         }
         return responseJson(1, 'تم ألأضافه بنجاح', ['data' => $item->load('restaurant')]);
     }
@@ -78,7 +78,7 @@ class MainController extends Controller
             $file = $request->file('image');
             $file_name = time() . $file->getClientOriginalName();
             $file->move($destinationPath . $item->name, $file_name);
-            $item->update(['image' => 'uploads/items/' . $file_name]);
+            $item->update(['image' => 'uploads/items/' . $item->name .'/'. $file_name]);
         }
         return responseJson(1, 'تم التحديث بنجاح', ['data' => $item->load('restaurant')]);
     }
@@ -133,7 +133,7 @@ class MainController extends Controller
             $file = $request->file('image');
             $file_name = time() . $file->getClientOriginalName();
             $file->move($destinationPath . $offer->title, $file_name);
-            $offer->update(['image' => 'uploads/offers/' . $file_name]);
+            $offer->update(['image' => 'uploads/offers/' . $offer->title .'/'. $file_name]);
         }
         return responseJson(1, 'تم ألأضافه بنجاح', ['data' => $offer->load('restaurant')]);
     }
@@ -167,7 +167,7 @@ class MainController extends Controller
             $file = $request->file('image');
             $file_name = time() . $file->getClientOriginalName();
             $file->move($destinationPath . $offer->title, $file_name);
-            $offer->update(['image' => 'uploads/offers/' . $file_name]);
+            $offer->update(['image' => 'uploads/offers/' . $offer->title .'/'. $file_name]);
         }
         return responseJson(1, 'تم التحديث بنجاح', ['data' => $offer->load('restaurant')]);
     }

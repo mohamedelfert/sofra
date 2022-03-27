@@ -183,7 +183,7 @@
                                     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2" style="padding-left: 2%">
                                         <h3 class="text-primary"><i class="fas fa-image"></i> {{ trans('admin.image') }} </h3>
                                         <p class="text-muted">
-                                            <img class="img-circle mb-3" src="{{ URL::asset($restaurant->image) }}" alt="Offer image" style="width: 80px;height: 50px;">
+                                            <img class="img-fluid mb-3" src="{{ URL::asset($restaurant->image) }}" alt="Restaurant image" style="width: 210px;height: 140px;margin: auto 25%;">
                                         </p>
                                         <hr>
                                         <h3>{{ trans('admin.categories') }}</h3>

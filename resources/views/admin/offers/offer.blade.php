@@ -44,7 +44,7 @@
                                     <textarea class="form-control" name="description" id="description" rows="6" disabled>{{ $offer->description }}ه</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <img class="img-circle mb-3" src="{{ URL::asset($offer->image) }}" alt="Offer image" style="width: 80px;height: 50px;">
+                                    <img class="img-fluid mb-3" src="{{ URL::asset($offer->image) }}" alt="Offer image" style="width: 130px;height: 100px;">
                                 </div>
                             </form>
                             <div class="text-center">

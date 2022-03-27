@@ -48,7 +48,7 @@ class AuthController extends Controller
                 $file = $request->file('image');
                 $file_name = time() . $file->getClientOriginalName();
                 $file->move($destinationPath.$client->name, $file_name);
-                $client->image = 'uploads/clients/' . $file_name;
+                $client->image = 'uploads/clients/' . $client->name .'/'. $file_name;
                 $client->save();
             }
             return responseJson(1, 'تم ألأضافه بنجاح', [
@@ -168,7 +168,7 @@ class AuthController extends Controller
             $file = $request->file('image');
             $file_name = time() . $file->getClientOriginalName();
             $file->move($destinationPath.$client_login->name, $file_name);
-            $client_login->image = 'uploads/clients/' . $file_name;
+            $client_login->image = 'uploads/clients/' . $client_login->name .'/'. $file_name;
             $client_login->save();
         }
         $data = ['client' => $request->user('client')->fresh()->load('region.city')];
