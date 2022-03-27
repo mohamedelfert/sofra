@@ -20,6 +20,8 @@ return [
     'offers_list' => 'Offers List',
     'restaurants' => 'Restaurants',
     'restaurants_list' => 'Restaurants List',
+    'payment_methods' => 'Payment Methods',
+    'payment_methods_list' => 'Payment Methods List',
     'clients' => 'Clients',
     'clients_list' => 'Clients List',
     'users' => 'Users & Permissions',

@@ -49,6 +49,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::get('deactivate/{id}', 'RestaurantController@deactivate')->name('deactivate');
     Route::post('status-filter', 'RestaurantController@statusFilter')->name('restaurants.status-filter');
 
+    Route::resource('payment-methods', 'PaymentMethodsController');
+
     Route::resource('contacts', 'ContactController');
     Route::get('filter-contacts', 'ContactController@filter')->name('contacts.filter');
 

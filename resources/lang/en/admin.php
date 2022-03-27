@@ -56,6 +56,11 @@ return [
     'active' => 'Active Or Not',
     'delete_restaurant' => 'Delete Restaurant',
 
+    'add_payment_method' => 'Add Payment Method',
+    'edit_payment_method' => 'Edit Payment Method',
+    'delete_payment_method' => 'Delete Payment Method',
+    'payment_method' => 'Payment Method',
+
     'user_name' => 'Name',
     'add_user' => 'Add New User',
     'user_email' => 'User E-mail',

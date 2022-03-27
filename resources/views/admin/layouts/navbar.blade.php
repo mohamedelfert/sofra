@@ -173,6 +173,23 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item {{ active_menu('payment-methods')[0] }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-eye"></i>
+                        <p>
+                            {{ trans('main.payment_methods') }}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" {{ active_menu('payment-methods')[1] }}>
+                        <li class="nav-item">
+                            <a href="{{ adminUrl('payment-methods') }}" class="nav-link">
+                                <i class="fas fa-list"></i>
+                                <p>{{ trans('main.payment_methods_list') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 {{--                <li class="nav-item {{ active_menu('users')[0] }}">--}}
 {{--                    <a href="#" class="nav-link">--}}
 {{--                        <i class="fas fa-user-shield"></i>--}}
