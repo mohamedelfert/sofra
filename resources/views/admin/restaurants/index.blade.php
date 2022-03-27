@@ -7,8 +7,18 @@
                 <div class="card-body">
 
                     <!-- This Form For Filter -->
+                    <div style="margin-bottom: 10px;float: left">
+                        <form action="{{ route('restaurants.status-filter') }}" method="POST" class="d-inline-block">
+                            {{ csrf_field() }}
+                            <select class="custom-select mr-sm-2" name="id" data-style="btn-info" onchange="this.form.submit()">
+                                <option value="" selected disabled>اختر الحالة</option>
+                                <option value="open">Open</option>
+                                <option value="close">Close</option>
+                            </select>
+                        </form>
+                    </div>
                     <div style="margin-bottom: 10px;float: right">
-                        <form action="{{ adminUrl('filter-offers') }}" method="GET" class="d-inline-block">
+                        <form action="{{ adminUrl('filter-restaurants') }}" method="GET" class="d-inline-block">
                             <div class="row">
                                 <div class="col-lg-4" id="end_at">
                                     <div class="input-group">
@@ -29,17 +39,19 @@
                         </form>
                     </div>
                     <!-- This Form For Filter -->
-                    @if(count($offers))
+                    @if(count($restaurants))
                         <div class="table-responsive">
                             <table id="datatable" class="table table-striped table-bordered p-0">
                                 <thead class="text-center">
                                 <tr>
                                     <th>#</th>
-                                    <th>{{trans('admin.offer_title')}}</th>
-                                    <th>{{trans('admin.restaurant_name')}}</th>
-                                    <th>{{trans('admin.offer_start')}}</th>
-                                    <th>{{trans('admin.offer_end')}}</th>
-                                    <th>{{trans('admin.offer_show')}}</th>
+                                    <th>{{trans('admin.name')}}</th>
+                                    <th>{{trans('admin.email')}}</th>
+                                    <th>{{trans('admin.phone')}}</th>
+                                    <th>{{trans('admin.region_name')}}</th>
+                                    <th>{{trans('admin.status')}}</th>
+                                    <th>{{trans('admin.active')}}</th>
+                                    <th>{{trans('admin.restaurant_show')}}</th>
                                     <th>{{trans('admin.control')}}</th>
                                 </tr>
                                 </thead>
@@ -48,46 +60,58 @@
                                 if (isset($filter)){
                                     $offers = $filter;
                                 }else{
-                                    $offers = $offers;
+                                    $restaurants = $restaurants;
                                 }
                                 $i = 1;
                                 ?>
-                                @foreach($offers as $offer)
+                                @foreach($restaurants as $restaurant)
                                     <tr>
                                         <td>{{$i++}}</td>
-                                        <td>{{$offer->title}}</td>
-                                        <td>{{optional($offer->restaurant)->name}}</td>
-                                        <td>{{$offer->start_at}}</td>
-                                        <td>{{$offer->end_at}}</td>
+                                        <td>{{$restaurant->name}}</td>
+                                        <td>{{$restaurant->email}}</td>
+                                        <td>{{$restaurant->phone}}</td>
+                                        <td>{{optional($restaurant->region)->name}}</td>
+                                        <td>{{$restaurant->status}}</td>
                                         <td>
-                                            <a type="button" class="btn btn-primary" href="{{ adminUrl('offers/'.$offer->id) }}">
+                                            @if($restaurant->is_active == 0)
+                                                <a href="activate/{{$restaurant->id}}">
+                                                    <span class="badge badge-pill badge-success">تفعيل</span>
+                                                </a>
+                                            @elseif($restaurant->is_active == 1)
+                                                <a href="deactivate/{{$restaurant->id}}">
+                                                    <span class="badge badge-pill badge-danger">الغاء التفعيل</span>
+                                                </a>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a type="button" class="btn btn-primary" href="{{ adminUrl('restaurants/'.$restaurant->id) }}">
                                                 <i class="ti-plus"></i>show
                                             </a>
                                         </td>
                                         <td>
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                               data-toggle="modal" href="#delete{{ $offer->id }}" title="حذف"><i class="fa fa-trash"></i>
+                                               data-toggle="modal" href="#delete{{ $restaurant->id }}" title="حذف"><i class="fa fa-trash"></i>
                                             </a>
                                         </td>
                                     </tr>
 
                                     <!-- Delete -->
-                                    <div class="modal fade" id="delete{{ $offer->id }}">
+                                    <div class="modal fade" id="delete{{ $restaurant->id }}">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content modal-content-demo">
                                                 <div class="modal-header">
-                                                    <h6 class="modal-title">{{trans('admin.delete_offer')}}</h6>
+                                                    <h6 class="modal-title">{{trans('admin.delete_restaurant')}}</h6>
                                                     <button aria-label="Close" class="close" data-dismiss="modal"
                                                             type="button"><span aria-hidden="true">&times;</span></button>
                                                 </div>
-                                                <form action="{{ route('offers.destroy','test') }}" method="post">
+                                                <form action="{{ route('restaurants.destroy','test') }}" method="post">
                                                     {{ method_field('delete') }}
                                                     {{ csrf_field() }}
                                                     <div class="modal-body">
                                                         <p>{{trans('admin.msg_delete')}}</p><br>
-                                                        <input type="hidden" name="id" id="id" value="{{ $offer->id }}">
+                                                        <input type="hidden" name="id" id="id" value="{{ $restaurant->id }}">
                                                         <input class="form-control" name="title" id="title" type="text"
-                                                               value="{{ $offer->title }}" readonly>
+                                                               value="{{ $restaurant->name }}" readonly>
                                                         <br>
                                                     </div>
                                                     <div class="modal-footer">
@@ -112,17 +136,19 @@
                                 <thead class="text-center">
                                 <tr>
                                     <th>#</th>
-                                    <th>{{trans('admin.offer_title')}}</th>
-                                    <th>{{trans('admin.restaurant_name')}}</th>
-                                    <th>{{trans('admin.offer_start')}}</th>
-                                    <th>{{trans('admin.offer_end')}}</th>
-                                    <th>{{trans('admin.contact_show')}}</th>
+                                    <th>{{trans('admin.name')}}</th>
+                                    <th>{{trans('admin.email')}}</th>
+                                    <th>{{trans('admin.phone')}}</th>
+                                    <th>{{trans('admin.region_name')}}</th>
+                                    <th>{{trans('admin.status')}}</th>
+                                    <th>{{trans('admin.active')}}</th>
+                                    <th>{{trans('admin.restaurant_show')}}</th>
                                     <th>{{trans('admin.control')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody class="text-center">
                                 <tr>
-                                    <td colspan="7" class="text-center text-danger">لايوجد اي عروض</td>
+                                    <td colspan="9" class="text-center text-danger">لايوجد اي مطاعم</td>
                                 </tr>
                                 </tbody>
                             </table>

@@ -156,6 +156,23 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item {{ active_menu('restaurants')[0] }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-eye"></i>
+                        <p>
+                            {{ trans('main.restaurants') }}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" {{ active_menu('restaurants')[1] }}>
+                        <li class="nav-item">
+                            <a href="{{ adminUrl('restaurants') }}" class="nav-link">
+                                <i class="fas fa-list"></i>
+                                <p>{{ trans('main.restaurants_list') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 {{--                <li class="nav-item {{ active_menu('users')[0] }}">--}}
 {{--                    <a href="#" class="nav-link">--}}
 {{--                        <i class="fas fa-user-shield"></i>--}}

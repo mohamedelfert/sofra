@@ -43,6 +43,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::resource('offers', 'OfferController');
     Route::get('filter-offers', 'OfferController@filter')->name('offers.filter');
 
+    Route::resource('restaurants', 'RestaurantController');
+    Route::get('filter-restaurants', 'RestaurantController@filter')->name('restaurants.filter');
+    Route::get('activate/{id}', 'RestaurantController@activate')->name('activate');
+    Route::get('deactivate/{id}', 'RestaurantController@deactivate')->name('deactivate');
+    Route::post('status-filter', 'RestaurantController@statusFilter')->name('restaurants.status-filter');
+
     Route::resource('contacts', 'ContactController');
     Route::get('filter-contacts', 'ContactController@filter')->name('contacts.filter');
 

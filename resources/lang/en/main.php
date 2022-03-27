@@ -18,6 +18,8 @@ return [
     'transactions_list' => 'Transactions List',
     'offers' => 'Offers',
     'offers_list' => 'Offers List',
+    'restaurants' => 'Restaurants',
+    'restaurants_list' => 'Restaurants List',
     'clients' => 'Clients',
     'clients_list' => 'Clients List',
     'users' => 'Users & Permissions',
