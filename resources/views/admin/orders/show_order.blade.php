@@ -71,8 +71,8 @@
                                                     <tr>
                                                         <td>{{ $item->id }}</td>
                                                         <td class="tx-12">{{ $item->name }}</td>
-                                                        <td class="tx-center">${{ number_format($item->price , 2) }}</td>
-                                                        <td class="tx-12">{{ $item->quantity }}</td>
+                                                        <td class="tx-center">${{ number_format($item->pivot->price , 2) }}</td>
+                                                        <td class="tx-12">{{ $item->pivot->quantity }}</td>
                                                     </tr>
                                                 @endforeach
                                                 <tr>
