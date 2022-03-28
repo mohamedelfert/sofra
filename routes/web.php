@@ -28,7 +28,7 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'auto_check_permission'], 'namespace' => 'Admin'], function () {
     Route::get('/admin', function () {
         return view('admin.home');
     });
@@ -66,6 +66,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Adm
     Route::get('filter-contacts', 'ContactController@filter')->name('contacts.filter');
 
     Route::resource('settings', 'SettingController');
+
+    Route::resource('users', 'UserController');
+    Route::resource('roles', 'RoleController');
 
     //================= this route for change language ( ar - en ) ===================//
     Route::get('lang/{lang}', function ($lang) {

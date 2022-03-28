@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -16,8 +17,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'gender', 'd_o_b', 'region_id', 'role_name', 'status', 'api_token', 'pin_code'
+        'name', 'email', 'password', 'role_name', 'status'
     ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -26,6 +28,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -33,17 +36,5 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'created_at' => 'datetime:Y-m-d H:m:s',
-        'updated_at' => 'datetime:Y-m-d H:m:s'
     ];
-
-    public function region()
-    {
-        return $this->belongsTo('App\Models\Region');
-    }
-
-    public function notifications()
-    {
-        return $this->morphMany('App\Models\Notification', 'notifiable');
-    }
 }
