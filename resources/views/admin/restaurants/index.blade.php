@@ -74,11 +74,11 @@
                                         <td>{{$restaurant->status}}</td>
                                         <td>
                                             @if($restaurant->is_active == 0)
-                                                <a href="activate/{{$restaurant->id}}">
+                                                <a href="restaurant-activate/{{$restaurant->id}}">
                                                     <span class="badge badge-pill badge-success">تفعيل</span>
                                                 </a>
                                             @elseif($restaurant->is_active == 1)
-                                                <a href="deactivate/{{$restaurant->id}}">
+                                                <a href="restaurant-deactivate/{{$restaurant->id}}">
                                                     <span class="badge badge-pill badge-danger">الغاء التفعيل</span>
                                                 </a>
                                             @endif

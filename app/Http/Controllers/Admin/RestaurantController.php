@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Item;
+use App\Models\Order;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -30,8 +32,10 @@ class RestaurantController extends Controller
     public function show($id)
     {
         $restaurant = Restaurant::findOrFail($id);
+        $items = Item::paginate(6);
+        $orders = Order::latest()->paginate(6);
         $title = trans('main.restaurants');
-        return view('admin.restaurants.restaurant', compact('title', 'restaurant'));
+        return view('admin.restaurants.restaurant', compact('title', 'restaurant', 'items', 'orders'));
     }
 
     /**
@@ -53,13 +57,13 @@ class RestaurantController extends Controller
         $end_at = date($request->end_at);
         $restaurants = Restaurant::whereBetween('created_at', [$start_at, $end_at])->get();
         $title = trans('main.restaurants');
-        return view('admin.restaurants.index', compact('title', 'restaurants','start_at','end_at'));
+        return view('admin.restaurants.index', compact('title', 'restaurants', 'start_at', 'end_at'));
     }
 
     public function statusFilter(Request $request)
     {
         $id = $request->id;
-        $restaurants = Restaurant::select('*')->where('status',$id)->get();
+        $restaurants = Restaurant::select('*')->where('status', $id)->get();
         $title = trans('main.restaurants');
         return view('admin.restaurants.index', compact('title', 'restaurants'));
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2022 at 08:55 PM
+-- Generation Time: Mar 31, 2022 at 07:22 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -66,13 +66,8 @@ CREATE TABLE `category_restaurant` (
 INSERT INTO `category_restaurant` (`id`, `restaurant_id`, `category_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 3, NULL, NULL),
 (2, 1, 4, NULL, NULL),
-(3, 2, 1, NULL, NULL),
-(4, 2, 4, NULL, NULL),
-(5, 3, 3, NULL, NULL),
-(6, 3, 4, NULL, NULL),
-(7, 1, 3, NULL, NULL),
-(8, 1, 4, NULL, NULL),
-(9, 2, 3, NULL, NULL);
+(10, 3, 1, '2022-03-26 22:00:00', '2022-03-26 22:00:00'),
+(11, 3, 2, '2022-03-26 22:00:00', '2022-03-26 22:00:00');
 
 -- --------------------------------------------------------
 
@@ -123,7 +118,7 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `email`, `phone`, `password`, `region_id`, `address`, `image`, `pin_code`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'mohamed ibrahiem', 'mohamed@yahoo.com', '01153225410', '$2y$10$loYthfVXGSJ4zQjYAgQ7NeLHWKwTWJH5UzezdjtJ5eFICrTzVDorq', 1, 'tanta', 'uploads/clients/1648035363male.png', NULL, 1, '2022-03-23 09:36:03', '2022-03-23 09:36:03');
+(1, 'mohamed ibrahiem', 'mohamed@yahoo.com', '01153225410', '$2y$10$loYthfVXGSJ4zQjYAgQ7NeLHWKwTWJH5UzezdjtJ5eFICrTzVDorq', 1, 'tanta', 'uploads/clients/mohamed ibrahiem/1648035363male.png', NULL, 1, '2022-03-23 09:36:03', '2022-03-31 11:01:56');
 
 -- --------------------------------------------------------
 
@@ -141,6 +136,13 @@ CREATE TABLE `contacts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `contacts`
+--
+
+INSERT INTO `contacts` (`id`, `name`, `email`, `phone`, `message`, `type`, `created_at`, `updated_at`) VALUES
+(3, 'mohamed ibrahiem', 'mohamed@yahoo.com', '01153225410', 'This Is Suggestion Message', 'suggestion', '2022-03-24 22:00:00', '2022-03-24 22:00:00');
 
 -- --------------------------------------------------------
 
@@ -182,12 +184,14 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `name`, `description`, `price`, `offer_price`, `preparing_time`, `image`, `restaurant_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'item4', 'description for item4', '30.00', '0.00', '10', 'uploads/items/1647613445admin.png', 1, 'enabled', '2022-03-18 12:24:05', '2022-03-18 12:24:05'),
-(2, 'item5', 'description for item5', '50.00', '0.00', '15', 'uploads/items/1647613538icons8-shopping-100.png', 1, 'enabled', '2022-03-18 12:25:38', '2022-03-18 12:25:38'),
-(3, 'item6', 'description for item6', '55.00', '0.00', '20', 'uploads/items/1647614021icons8-shopping-100.png', 1, 'enabled', '2022-03-18 12:33:41', '2022-03-18 12:33:41'),
-(4, 'item7', 'description for item7', '35.00', '0.00', '15', 'uploads/items/1647617643error.png', 1, 'enabled', '2022-03-18 13:34:03', '2022-03-18 13:34:03'),
-(5, 'item00', 'description for item00', '38.00', '0.00', '10', 'uploads/items/1647783031695.jpg', 1, 'enabled', '2022-03-20 11:30:31', '2022-03-20 11:30:31'),
-(6, 'item1', 'description for item1', '45.00', '0.00', '10', 'uploads/items/1648035538error.png', 2, 'enabled', '2022-03-23 09:38:58', '2022-03-23 09:38:58');
+(1, 'item4', 'description for item4', '30.00', '0.00', '10', 'uploads/items/item4/1647613445admin.png', 1, 'enabled', '2022-03-18 12:24:05', '2022-03-18 12:24:05'),
+(2, 'item5', 'description for item5', '50.00', '0.00', '15', 'uploads/items/item5/1647613538icons8-shopping-100.png', 1, 'enabled', '2022-03-18 12:25:38', '2022-03-18 12:25:38'),
+(3, 'item6', 'description for item6', '55.00', '0.00', '20', 'uploads/items/item6/1647614021icons8-shopping-100.png', 1, 'enabled', '2022-03-18 12:33:41', '2022-03-18 12:33:41'),
+(4, 'item7', 'description for item7', '35.00', '0.00', '15', 'uploads/items/item7/1647617643error.png', 1, 'enabled', '2022-03-18 13:34:03', '2022-03-18 13:34:03'),
+(5, 'item00', 'description for item00', '38.00', '0.00', '10', 'uploads/items/item00/1647783031695.jpg', 1, 'enabled', '2022-03-20 11:30:31', '2022-03-20 11:30:31'),
+(7, 'item', 'description', '35.00', '0.00', '15', 'uploads/items/item/1647783031695.jpg', 3, 'enabled', '2022-03-26 22:00:00', '2022-03-26 22:00:00'),
+(8, 'item10', 'description', '50.00', '0.00', '10', 'uploads/items/item/1647614021icons8-shopping-100.png', 3, 'enabled', '2022-03-26 22:00:00', '2022-03-26 22:00:00'),
+(9, 'item11', 'description', '40.00', '0.00', '10', 'uploads/items/item/1647613445admin.png', 3, 'enabled', '2022-03-26 22:00:00', '2022-03-26 22:00:00');
 
 -- --------------------------------------------------------
 
@@ -221,10 +225,7 @@ INSERT INTO `item_order` (`id`, `item_id`, `order_id`, `price`, `quantity`, `not
 (8, 1, 7, '30.00', 2, 'no onion plz', NULL, NULL),
 (9, 4, 7, '35.00', 1, 'no tomato', NULL, NULL),
 (10, 1, 8, '30.00', 2, 'no onion plz', NULL, NULL),
-(11, 4, 8, '35.00', 1, 'no tomato', NULL, NULL),
-(12, 6, 9, '45.00', 2, 'no onion plz', NULL, NULL),
-(13, 6, 10, '45.00', 4, 'no onion plz', NULL, NULL),
-(14, 6, 11, '45.00', 4, 'no onion plz', NULL, NULL);
+(11, 4, 8, '35.00', 1, 'no tomato', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -243,7 +244,6 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2022_03_17_230640_create_categories_table', 1),
@@ -267,7 +267,43 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2016_06_01_000002_create_oauth_access_tokens_table', 2),
 (23, '2016_06_01_000003_create_oauth_refresh_tokens_table', 2),
 (24, '2016_06_01_000004_create_oauth_clients_table', 2),
-(25, '2016_06_01_000005_create_oauth_personal_access_clients_table', 2);
+(25, '2016_06_01_000005_create_oauth_personal_access_clients_table', 2),
+(27, '2022_03_28_091558_create_permission_tables', 3),
+(28, '2014_10_12_000000_create_users_table', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_permissions`
+--
+
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_roles`
+--
+
+CREATE TABLE `model_has_roles` (
+  `role_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `model_has_roles`
+--
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+(1, 'App\\User', 1),
+(2, 'App\\User', 4),
+(3, 'App\\User', 2),
+(3, 'App\\User', 3);
 
 -- --------------------------------------------------------
 
@@ -312,13 +348,7 @@ INSERT INTO `notifications` (`id`, `title`, `content`, `notificationable_id`, `n
 (18, 'تأكيد توصيل الطلب للعميل', 'تم توصيل الطلب رقم 1 للعميل mohamed ibrahiem', 1, 'App\\Models\\Restaurant', 0, 1, '2022-03-23 19:24:13', '2022-03-23 19:24:13'),
 (19, 'تأكيد توصيل الطلب للعميل', 'تم توصيل الطلب رقم 3 للعميل mohamed ibrahiem', 1, 'App\\Models\\Restaurant', 0, 3, '2022-03-23 19:25:06', '2022-03-23 19:25:06'),
 (20, 'رفض الطلب من العميل', 'تم رفض استلام الطلب رقم 5 من العميل mohamed ibrahiem', 1, 'App\\Models\\Restaurant', 0, 5, '2022-03-23 19:25:21', '2022-03-23 19:25:21'),
-(21, 'طلب جديد', 'لديك طلب جديد من العميل mohamed ibrahiem', 2, 'App\\Models\\Restaurant', 0, 9, '2022-03-23 20:05:05', '2022-03-23 20:05:05'),
-(22, 'تأكيد توصيل الطلب للعميل', 'تم توصيل الطلب رقم 9 للعميل mohamed ibrahiem', 2, 'App\\Models\\Restaurant', 0, 9, '2022-03-23 20:05:57', '2022-03-23 20:05:57'),
-(23, 'تأكيد توصيل الطلب للعميل', 'تم توصيل الطلب رقم 9 للعميل mohamed ibrahiem', 2, 'App\\Models\\Restaurant', 0, 9, '2022-03-23 20:12:08', '2022-03-23 20:12:08'),
-(24, 'طلب جديد', 'لديك طلب جديد من العميل mohamed ibrahiem', 2, 'App\\Models\\Restaurant', 0, 10, '2022-03-23 20:20:47', '2022-03-23 20:20:47'),
-(25, 'طلب جديد', 'لديك طلب جديد من العميل mohamed ibrahiem', 1, 'App\\Models\\Restaurant', 0, 11, '2022-03-23 20:21:59', '2022-03-23 20:21:59'),
 (26, 'قبول الطلب', 'تم قبول الطلب رقم 7 من المطعم restaurant 1', 1, 'App\\Models\\Client', 0, 7, '2022-03-24 13:24:50', '2022-03-24 13:24:50'),
-(27, 'رفض الطلب', 'تم رفض الطلب رقم 11 من المطعم restaurant 1', 1, 'App\\Models\\Client', 0, 11, '2022-03-24 13:26:01', '2022-03-24 13:26:01'),
 (28, 'تأكيد توصيل وانهاء الطلب', 'تم توصيل الطلب رقم 1 للعميل mohamed ibrahiem', 1, 'App\\Models\\Client', 0, 1, '2022-03-24 13:37:54', '2022-03-24 13:37:54'),
 (29, 'تأكيد توصيل وانهاء الطلب', 'تم توصيل الطلب رقم 3 للعميل mohamed ibrahiem', 1, 'App\\Models\\Client', 0, 3, '2022-03-24 15:24:08', '2022-03-24 15:24:08');
 
@@ -352,6 +382,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('4a93fa0dd02be0d25e49056c255b16cdeeea9ff8a2c8c15cb47e5a93fdfb8f2b00f826d3abc27cdf', 1, 1, 'API Token', '[]', 0, '2022-03-24 17:50:22', '2022-03-24 17:50:22', '2023-03-24 19:50:22'),
 ('4d48a842500741f91f44342a1e8e277b48b993710c41c7d2e7bf80be5eb3b639d2ebfec7bfb91237', 1, 1, 'API Token', '[]', 0, '2022-03-23 11:52:26', '2022-03-23 11:52:26', '2023-03-23 13:52:26'),
 ('52ea8722fa81cc1f7311c7b258ab0ff3c485a00a99dfaafd2799e01f32a195367784c219a0a408c5', 1, 1, 'API Token', '[]', 0, '2022-03-23 09:36:27', '2022-03-23 09:36:27', '2023-03-23 11:36:27'),
+('7fa510308d4e7bebad43f7809cc073a966dd5a6f7a6ac865b1b47ac45186c1ccf15c36636869d8ad', 1, 1, 'API Token', '[]', 0, '2022-03-26 16:14:57', '2022-03-26 16:14:57', '2023-03-26 18:14:57'),
 ('921060ee5479c5aecc2cd5f4dbc476694783c29b7ec0d20553670015e010943df860f49369c72786', 2, 1, 'API Token', '[]', 0, '2022-03-23 18:57:16', '2022-03-23 18:57:16', '2023-03-23 20:57:16'),
 ('cb6003c83431ef20f436bfb257446a2141452e7105644e6af982c35ddd28d0a3b637dd9a624ecde3', 1, 1, 'API Token', '[]', 0, '2022-03-23 09:38:02', '2022-03-23 09:38:02', '2023-03-23 11:38:02');
 
@@ -455,7 +486,7 @@ CREATE TABLE `offers` (
 --
 
 INSERT INTO `offers` (`id`, `title`, `description`, `start_at`, `end_at`, `image`, `restaurant_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, '50% offer', '50% offer for any order', '2022-03-18 02:00:00', '2022-03-26 02:20:50', 'uploads/offers/1647619662icons8-shopping-100.png', 1, 'available', '2022-03-18 14:04:53', '2022-03-18 14:07:42');
+(2, '35% offer', '35% offer for any order', '2022-03-19 02:00:00', '2022-03-22 02:00:00', 'uploads/offers/35% offer/1648318513icons8-e-commerce-100.png', 1, 'available', '2022-03-26 16:15:13', '2022-03-26 16:15:13');
 
 -- --------------------------------------------------------
 
@@ -495,10 +526,7 @@ INSERT INTO `orders` (`id`, `address`, `notes`, `cost`, `delivery_cost`, `total`
 (5, 'tanta', 'no notes', '76.00', '15.00', '91.00', 1, 2, '45 minute', 'refused', '22.80', -1, 0, 1, '68.20', '2022-03-23 12:37:25', '2022-03-23 19:25:21'),
 (6, 'tanta', 'no notes', '100.00', '15.00', '115.00', 1, 2, '45 minute', 'pending', '30.00', 0, 0, 1, '85.00', '2022-03-23 12:49:22', '2022-03-23 12:49:22'),
 (7, 'tanta', 'no notes', '95.00', '15.00', '110.00', 1, 2, '45 minute', 'accepted', '28.50', 0, 0, 1, '81.50', '2022-03-23 17:06:18', '2022-03-24 13:24:50'),
-(8, 'tanta', 'no notes', '95.00', '15.00', '110.00', 1, 2, '45 minute', 'pending', '28.50', 0, 0, 1, '81.50', '2022-03-23 17:07:04', '2022-03-23 17:07:04'),
-(9, 'tanta', 'no notes', '90.00', '15.00', '105.00', 2, 1, '45 minute', 'received', '27.00', 1, 0, 1, '78.00', '2022-03-23 20:05:05', '2022-03-23 20:12:08'),
-(10, 'tanta', 'no notes', '180.00', '15.00', '195.00', 2, 1, '45 minute', 'pending', '54.00', 0, 0, 1, '141.00', '2022-03-23 20:20:47', '2022-03-23 20:20:47'),
-(11, 'tanta', 'no notes', '180.00', '15.00', '195.00', 1, 1, '45 minute', 'rejected', '54.00', 0, 0, 1, '141.00', '2022-03-23 20:21:59', '2022-03-24 13:26:01');
+(8, 'tanta', 'no notes', '95.00', '15.00', '110.00', 1, 2, '45 minute', 'pending', '28.50', 0, 0, 1, '81.50', '2022-03-23 17:07:04', '2022-03-23 17:07:04');
 
 -- --------------------------------------------------------
 
@@ -533,6 +561,94 @@ INSERT INTO `payment_methods` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'vodafone cash', '2022-03-17 22:00:00', '2022-03-17 22:00:00'),
 (2, 'cash on delivery', '2022-03-17 22:00:00', '2022-03-17 22:00:00'),
 (3, 'credit card', '2022-03-17 22:00:00', '2022-03-17 22:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `routes` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `display_name`, `guard_name`, `created_at`, `updated_at`, `routes`) VALUES
+(1, 'user-list', 'المستخدمين', 'web', '2022-03-28 07:47:45', '2022-03-28 07:47:45', 'users.index'),
+(2, 'user-create', 'المستخدمين', 'web', '2022-03-28 07:47:45', '2022-03-28 07:47:45', 'users.create,users.store'),
+(3, 'user-edit', 'المستخدمين', 'web', '2022-03-28 07:47:45', '2022-03-28 07:47:45', 'users.edit,users.update'),
+(4, 'user-delete', 'المستخدمين', 'web', '2022-03-28 07:47:45', '2022-03-28 07:47:45', 'users.destroy'),
+(5, 'role-list', 'الصلاحيات', 'web', '2022-03-28 07:47:45', '2022-03-28 07:47:45', 'roles.index'),
+(6, 'role-create', 'الصلاحيات', 'web', '2022-03-28 07:47:45', '2022-03-28 07:47:45', 'roles.create,roles.store'),
+(7, 'role-edit', 'الصلاحيات', 'web', '2022-03-28 07:47:45', '2022-03-28 07:47:45', 'roles.edit,roles.update'),
+(8, 'role-delete', 'الصلاحيات', 'web', '2022-03-28 07:47:45', '2022-03-28 07:47:45', 'roles.destroy'),
+(9, 'cities-list', 'المدن', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'cities.index'),
+(10, 'cities-create', 'المدن', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'cities.create,cities.store'),
+(11, 'cities-edit', 'المدن', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'cities.edit,cities.update'),
+(12, 'cities-delete', 'المدن', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'cities.destroy'),
+(13, 'regions-list', 'المناطق', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'regions.index'),
+(14, 'regions-create', 'المناطق', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'regions.create,regions.store'),
+(15, 'regions-edit', 'المناطق', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'regions.edit,regions.update'),
+(16, 'regions-delete', 'المناطق', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'regions.destroy'),
+(17, 'categories-list', 'التصنيفات', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'categories.index'),
+(18, 'categories-create', 'التصنيفات', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'categories.create,categories.store'),
+(19, 'categories-edit', 'التصنيفات', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'categories.edit,categories.update'),
+(20, 'categories-delete', 'التصنيفات', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'categories.destroy'),
+(21, 'transactions-list', 'المدفوعات', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'transactions.index'),
+(22, 'transactions-create', 'المدفوعات', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'transactions.create,transactions.store'),
+(23, 'transactions-edit', 'المدفوعات', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'transactions.edit,transactions.update'),
+(24, 'transactions-delete', 'المدفوعات', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'transactions.destroy'),
+(25, 'transactions-filter', 'المدفوعات-فلتره', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'transactions.filter'),
+(26, 'offers-list', 'العروض', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'offers.index'),
+(27, 'offers-create', 'العروض', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'offers.create,offers.store'),
+(28, 'offers-edit', 'العروض', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'offers.edit,offers.update'),
+(29, 'offers-delete', 'العروض', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'offers.destroy'),
+(30, 'offers-filter', 'العروض-فلتره', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'offers.filter'),
+(31, 'offers-show', 'العروض', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'offers.show'),
+(32, 'restaurants-list', 'المطاعم', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'restaurants.index'),
+(33, 'restaurants-create', 'المطاعم', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'restaurants.create,restaurants.store'),
+(34, 'restaurants-edit', 'المطاعم', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'restaurants.edit,restaurants.update'),
+(35, 'restaurants-delete', 'المطاعم', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'restaurants.destroy'),
+(36, 'restaurants-filter', 'المطاعم-فلتره', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'restaurants.filter'),
+(37, 'restaurants-activate', 'المطاعم-تفعيل', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'restaurant-activate'),
+(38, 'restaurants-deactivate', 'المطاعم-الغاء تفعيل', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'restaurant-deactivate'),
+(39, 'restaurants-status-filter', 'المطاعم-فلتره', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'restaurants.status-filter'),
+(40, 'restaurants-show', 'المطاعم', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'restaurants.show'),
+(41, 'payment-methods-list', 'طرق الدفع', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'payment-methods.index'),
+(42, 'payment-methods-create', 'طرق الدفع', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'payment-methods.create,payment-methods.store'),
+(43, 'payment-methods-edit', 'طرق الدفع', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'payment-methods.edit,payment-methods.update'),
+(44, 'payment-methods-delete', 'طرق الدفع', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'payment-methods.destroy'),
+(45, 'clients-list', 'العملاء', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'clients.index'),
+(46, 'clients-create', 'العملاء', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'clients.create,clients.store'),
+(47, 'clients-edit', 'العملاء', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'clients.edit,clients.update'),
+(48, 'clients-delete', 'العملاء', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'clients.destroy'),
+(49, 'clients-filter', 'العملاء-فلتره', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'clients.filter'),
+(50, 'clients-activate', 'العملاء', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'activate'),
+(51, 'clients-deactivate', 'العملاء', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'deactivate'),
+(52, 'clients-active-filter', 'العملاء', 'web', '2022-03-28 22:00:00', '2022-03-28 22:00:00', 'clients.active-filter'),
+(53, 'orders-list', 'الطلبات', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'orders.index'),
+(54, 'orders-create', 'الطلبات', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'orders.create,orders.store'),
+(55, 'orders-edit', 'الطلبات', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'orders.edit,orders.update'),
+(56, 'orders-delete', 'الطلبات', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'orders.destroy'),
+(57, 'orders-filter', 'الطلبات-فلتره', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'orders.filter'),
+(58, 'orders-filter-status', 'الطلبات-فلتره', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'orders.filter-status'),
+(59, 'orders-show', 'الطلبات', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'orders.show'),
+(60, 'orders-print', 'الطلبات-طباعه', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'orders.print-order'),
+(61, 'contacts-list', 'الرسائل', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'contacts.index'),
+(62, 'contacts-filter', 'الرسائل', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'contacts.filter'),
+(63, 'contacts-show', 'الرسائل', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'contacts.show'),
+(64, 'settings-list', 'الاعدادات', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'settings.index'),
+(65, 'settings-edit', 'الاعدادات', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'settings.update'),
+(66, 'language', 'اللغه', 'web', '2022-03-30 22:00:00', '2022-03-30 22:00:00', 'lang');
 
 -- --------------------------------------------------------
 
@@ -591,8 +707,8 @@ CREATE TABLE `restaurants` (
 --
 
 INSERT INTO `restaurants` (`id`, `name`, `email`, `phone`, `second_phone`, `password`, `region_id`, `minimum_order`, `delivery_fee`, `whatsapp`, `image`, `status`, `is_active`, `pin_code`, `created_at`, `updated_at`) VALUES
-(1, 'restaurant 1', 'restaurant1@yahoo.com', '01011563248', '01122049044', '$2y$10$xTP4tBdcBrcGlwmROO08hu93/MbxsiKYJVnv8R8.UE3j9z/c7Tlcy', 1, '50.00', '15.00', '01055612144', 'uploads/restaurants/1648151700695.jpg', 'open', 1, NULL, '2022-03-23 09:37:33', '2022-03-24 17:55:00'),
-(2, 'restaurant 2', 'restaurant2@yahoo.com', '01055612140', '01122049046', '$2y$10$NXCSZyL9sB.x/4.mm/OSW..BRMpBIOnF8LwQGQxlAYqPtNMjEu586', 2, '45.00', '15.00', '01055612140', 'uploads/restaurants/1648069036695.jpg', 'open', 1, NULL, '2022-03-23 18:57:16', '2022-03-23 18:57:16');
+(1, 'restaurant 1', 'restaurant1@yahoo.com', '01011563248', '01122049044', '$2y$10$xTP4tBdcBrcGlwmROO08hu93/MbxsiKYJVnv8R8.UE3j9z/c7Tlcy', 1, '50.00', '15.00', '01055612144', 'uploads/restaurants/restaurant 1/1648151700695.jpg', 'open', 1, NULL, '2022-03-23 09:37:33', '2022-03-31 11:01:45'),
+(3, 'restaurant 2', 'restaurant2@yahoo.com', '01011643198', '01011643128', '$2y$10$xTP4tBdcBrcGlwmROO08hu93/MbxsiKYJVnv8R8.UE3j9z/c7Tlcy', 6, '40.00', '15.00', '01011643198', 'uploads/restaurants/restaurant 2/1647564525icons8-e-commerce-100.png', 'open', 1, NULL, '2022-03-27 04:14:13', '2022-03-31 11:01:49');
 
 -- --------------------------------------------------------
 
@@ -615,8 +731,123 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `comment`, `rate`, `restaurant_id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 'good restaurant and food is very good', '5', 1, 1, '2022-03-23 20:02:47', '2022-03-23 20:02:47'),
-(2, 'good restaurant and food is good', '4', 2, 1, '2022-03-23 20:11:52', '2022-03-23 20:11:52');
+(1, 'good restaurant and food is very good', '5', 1, 1, '2022-03-23 20:02:47', '2022-03-23 20:02:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `display_name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'superAdmin', 'المدير العام', 'web', '2022-03-28 07:47:45', '2022-03-28 07:49:04'),
+(2, 'Admin', 'المدير', 'web', '2022-03-28 07:48:53', '2022-03-28 07:48:53'),
+(3, 'User', 'مستخدم', 'web', '2022-03-28 07:49:32', '2022-03-28 07:49:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_has_permissions`
+--
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `role_has_permissions`
+--
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 1),
+(2, 2),
+(3, 1),
+(3, 2),
+(4, 1),
+(4, 2),
+(5, 1),
+(5, 2),
+(6, 1),
+(6, 2),
+(7, 1),
+(7, 2),
+(8, 1),
+(8, 2),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1),
+(21, 1),
+(22, 1),
+(23, 1),
+(24, 1),
+(25, 1),
+(26, 1),
+(27, 1),
+(28, 1),
+(29, 1),
+(30, 1),
+(31, 1),
+(32, 1),
+(33, 1),
+(34, 1),
+(35, 1),
+(36, 1),
+(37, 1),
+(38, 1),
+(39, 1),
+(40, 1),
+(41, 1),
+(42, 1),
+(43, 1),
+(44, 1),
+(45, 1),
+(46, 1),
+(47, 1),
+(48, 1),
+(49, 1),
+(50, 1),
+(51, 1),
+(52, 1),
+(53, 1),
+(54, 1),
+(55, 1),
+(56, 1),
+(57, 1),
+(58, 1),
+(59, 1),
+(60, 1),
+(61, 1),
+(62, 1),
+(63, 1),
+(64, 1),
+(65, 1),
+(66, 1);
 
 -- --------------------------------------------------------
 
@@ -646,7 +877,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `commission_text`, `about_app`, `phone`, `email`, `commission`, `fb_url`, `tw_url`, `insta_url`, `android_url`, `ios_url`, `bank_account`, `created_at`, `updated_at`) VALUES
-(1, '1', '', '', '', '0.60', '', '', '', '', '', '', NULL, NULL);
+(1, 'Odit dolores harum a', 'Non omnis aut proide', '01153225410', 'info@sofra.com', '0.50', 'www.facebook.com', 'www.twitter.com', 'www.instagram.com/', 'android', 'ios', '12012254762210247', NULL, '2022-03-25 18:25:23');
 
 -- --------------------------------------------------------
 
@@ -659,7 +890,7 @@ CREATE TABLE `transactions` (
   `amount` decimal(8,2) NOT NULL,
   `notes` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `restaurant_id` int(10) UNSIGNED NOT NULL,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -669,7 +900,7 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`id`, `amount`, `notes`, `restaurant_id`, `date`, `created_at`, `updated_at`) VALUES
-(1, '30.00', 'first amount', 1, '2022-03-23 07:15:16', '2022-03-23 22:00:00', '2022-03-23 22:00:00');
+(1, '30.00', 'first amount', 1, '2022-03-23', '2022-03-23 22:00:00', '2022-03-23 22:00:00');
 
 -- --------------------------------------------------------
 
@@ -678,18 +909,13 @@ INSERT INTO `transactions` (`id`, `amount`, `notes`, `restaurant_id`, `date`, `c
 --
 
 CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gender` enum('male','female') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `d_o_b` date NOT NULL,
-  `region_id` int(10) UNSIGNED NOT NULL,
   `role_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pin_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -699,8 +925,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `phone`, `password`, `gender`, `d_o_b`, `region_id`, `role_name`, `status`, `pin_code`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@sofra.com', NULL, '01153225410', '$2y$10$RMF6LpEMld0i5nW8q.NW9unCC8wmrjbNP8UYmJA.8HljwM1pchGTC', 'male', '1995-01-19', 1, 'superAdmin', 'active', NULL, NULL, '2022-03-17 21:16:10', '2022-03-17 21:16:10');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role_name`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Mohamed Ibrahiem', 'mohamed@yahoo.com', NULL, '$2y$10$iGtxHHotFq4.cW0ouNa6aeGyp9TDRnn.WvMsWiFtzLLZ3Nx07G3lO', 'superAdmin', 'active', '4z1YBlBusljPocYxFipGqLAXrvdI91afjFqsqDpDIWU5qABQzqXYmqHeByY4', '2022-03-28 07:47:45', '2022-03-28 07:47:45'),
+(3, 'sofra user', 'user@sofra.com', NULL, '$2y$10$2arKTHq42v1e3O.W4fFLl.4SG9s4Hyn8emhXtxG9IJdgbW9sgzIFe', 'User', 'active', NULL, '2022-03-28 07:55:13', '2022-03-28 07:55:13'),
+(4, 'Admin', 'admin@sofra.com', NULL, '$2y$10$4Iy4i31db5Xe9Ra9CaGZ4OCnrWVvaTwg1PwWX0MurtS1Lv/CNvaPS', 'Admin', 'active', NULL, '2022-03-28 07:55:40', '2022-03-28 07:55:40');
 
 --
 -- Indexes for dumped tables
@@ -772,6 +1000,20 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
 -- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
@@ -841,6 +1083,13 @@ ALTER TABLE `payment_methods`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
+
+--
 -- Indexes for table `regions`
 --
 ALTER TABLE `regions`
@@ -868,6 +1117,20 @@ ALTER TABLE `reviews`
   ADD KEY `reviews_client_id_foreign` (`client_id`);
 
 --
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`);
+
+--
+-- Indexes for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
+
+--
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
@@ -885,8 +1148,7 @@ ALTER TABLE `transactions`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`),
-  ADD UNIQUE KEY `users_phone_unique` (`phone`);
+  ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -902,7 +1164,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `category_restaurant`
 --
 ALTER TABLE `category_restaurant`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -920,7 +1182,7 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -932,13 +1194,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `item_order`
 --
 ALTER TABLE `item_order`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -968,19 +1230,25 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
 --
 ALTER TABLE `payment_methods`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `regions`
@@ -992,13 +1260,19 @@ ALTER TABLE `regions`
 -- AUTO_INCREMENT for table `restaurants`
 --
 ALTER TABLE `restaurants`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -1016,7 +1290,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -1047,6 +1321,18 @@ ALTER TABLE `items`
 ALTER TABLE `item_order`
   ADD CONSTRAINT `item_order_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `item_order_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `notifications`
@@ -1086,6 +1372,13 @@ ALTER TABLE `restaurants`
 ALTER TABLE `reviews`
   ADD CONSTRAINT `reviews_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `reviews_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `transactions`

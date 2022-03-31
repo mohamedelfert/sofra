@@ -28,7 +28,7 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'auto_check_permission'], 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','auto_check_permission'], 'namespace' => 'Admin'], function () {
     Route::get('/admin', function () {
         return view('admin.home');
     });
@@ -45,8 +45,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'auto_check_permissi
 
     Route::resource('restaurants', 'RestaurantController');
     Route::get('filter-restaurants', 'RestaurantController@filter')->name('restaurants.filter');
-    Route::get('activate/{id}', 'RestaurantController@activate')->name('activate');
-    Route::get('deactivate/{id}', 'RestaurantController@deactivate')->name('deactivate');
+    Route::get('restaurant-activate/{id}', 'RestaurantController@activate')->name('restaurant-activate');
+    Route::get('restaurant-deactivate/{id}', 'RestaurantController@deactivate')->name('restaurant-deactivate');
     Route::post('status-filter', 'RestaurantController@statusFilter')->name('restaurants.status-filter');
 
     Route::resource('clients', 'ClientController');
@@ -58,7 +58,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'auto_check_permissi
     Route::resource('orders', 'OrderController');
     Route::get('filter-orders', 'OrderController@filter')->name('orders.filter');
     Route::post('filter-status', 'OrderController@filterStatus')->name('orders.filter-status');
-    Route::get('/print_order/{id}', 'OrderController@print_order');
+    Route::get('/print_order/{id}', 'OrderController@print_order')->name('orders.print-order');
 
     Route::resource('payment-methods', 'PaymentMethodsController');
 
