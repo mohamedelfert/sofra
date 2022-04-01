@@ -204,13 +204,15 @@ class MainController extends Controller
             } elseif ($request->has('status') && $request->status == 'pending') {
                 $order->where('status', '=', 'pending');
             }
-        })->with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')->latest()->paginate(10);
+        })->with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')
+            ->latest()->paginate(10);
         return responseJson('1', $my_orders);
     }
 
     public function showOrder(Request $request)
     {
-        $order = Order::with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')->find($request->order_id);
+        $order = Order::with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')
+            ->find($request->order_id);
         return responseJson('1', $order);
     }
 
@@ -341,14 +343,16 @@ class MainController extends Controller
 
     public function notifications(Request $request)
     {
-        $notifications = $request->user('restaurant')->notifications()->with('order.restaurant')->latest()->paginate(10);
+        $notifications = $request->user('restaurant')->notifications()->with('order.restaurant')
+            ->latest()->paginate(10);
         return responseJson(1, $notifications);
     }
 
     public function commission(Request $request)
     {
         $ordersCompletedCount = $request->user('restaurant')->orders()->where('status', 'completed')->count();
-        $ordersCompletedCommission = $request->user('restaurant')->orders()->where('status', 'completed')->sum('commission');
+        $ordersCompletedCommission = $request->user('restaurant')->orders()->where('status', 'completed')
+            ->sum('commission');
         $ordersCompletedCost = $request->user('restaurant')->orders()->where('status', 'completed')->sum('cost');
         $restaurantTransactions = $request->user('restaurant')->transactions()->sum('amount');
         $remaining = $ordersCompletedCommission - $restaurantTransactions;

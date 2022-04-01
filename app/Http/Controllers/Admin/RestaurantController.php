@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Item;
-use App\Models\Order;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -32,8 +30,8 @@ class RestaurantController extends Controller
     public function show($id)
     {
         $restaurant = Restaurant::findOrFail($id);
-        $items = Item::paginate(6);
-        $orders = Order::latest()->paginate(6);
+        $items = $restaurant->items()->take(6)->get();
+        $orders = $restaurant->orders()->take(6)->get();
         $title = trans('main.restaurants');
         return view('admin.restaurants.restaurant', compact('title', 'restaurant', 'items', 'orders'));
     }

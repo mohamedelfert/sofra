@@ -121,13 +121,15 @@ class MainController extends Controller
             } elseif ($request->has('status') && $request->status == 'pending') {
                 $order->where('status', '=', 'pending');
             }
-        })->with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')->latest()->paginate(10);
+        })->with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')
+            ->latest()->paginate(10);
         return responseJson('1', $my_orders);
     }
 
     public function showOrder(Request $request)
     {
-        $order = Order::with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')->find($request->order_id);
+        $order = Order::with('items', 'restaurant.region', 'restaurant.categories', 'payment_method', 'client')
+            ->find($request->order_id);
         return responseJson('1', $order);
     }
 
@@ -238,7 +240,8 @@ class MainController extends Controller
             return responseJson(0, 'لا يمكن الحصول علي معلومات');
         }
 
-        $checkClientOrdersCount = $request->user('client')->orders()->where('restaurant_id', $request->restaurant_id)
+        $checkClientOrdersCount = $request->user('client')->orders()
+            ->where('restaurant_id', $request->restaurant_id)
             ->where('status', 'accepted')->count();
         if ($checkClientOrdersCount == 0) {
             return responseJson(0, 'لا يمكن تقييم المطعم الا بعد تنفيذ عمليه شراء واحده منه علي ألأقل');
@@ -257,7 +260,8 @@ class MainController extends Controller
 
     public function notifications(Request $request)
     {
-        $notifications = $request->user('client')->notifications()->with('order.restaurant.region.city','order.client.region.city')->latest()->paginate(10);
+        $notifications = $request->user('client')->notifications()
+            ->with('order.restaurant.region.city','order.client.region.city')->latest()->paginate(10);
         return responseJson(1, $notifications);
     }
 }

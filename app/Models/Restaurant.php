@@ -10,11 +10,18 @@ class Restaurant extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
     public $timestamps = true;
     protected $table = 'restaurants';
     protected $guarded = [];
 //    protected $fillable = array('name', 'email', 'phone', 'second_phone', 'password', 'region_id', 'minimum_order', 'delivery_fee', 'whatsapp', 'image', 'status', 'is_active', 'api_token', 'pin_code');
     protected $casts = ['created_at' => 'datetime:Y-m-d H:m:s', 'updated_at' => 'datetime:Y-m-d H:m:s'];
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', self::STATUS_ACTIVE);
+    }
 
     public function region()
     {

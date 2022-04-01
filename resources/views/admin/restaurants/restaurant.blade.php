@@ -144,16 +144,14 @@
                                                     <h3>{{ trans('admin.items') }}</h3>
                                                     <div class="row">
                                                         @foreach($items as $item)
-                                                            @if($item->restaurant_id == $restaurant->id)
-                                                                <div class="col-12 col-sm-4">
-                                                                    <div class="info-box bg-light">
-                                                                        <div class="info-box-content">
-                                                                            <span class="info-box-number text-center mb-0 badge badge-pill badge-secondary">Name : {{ $item->name }}</span>
-                                                                            <span class="info-box-number text-center mb-0 badge badge-pill badge-primary">Price : {{ $item->price }} $</span>
-                                                                        </div>
+                                                            <div class="col-12 col-sm-4">
+                                                                <div class="info-box bg-light">
+                                                                    <div class="info-box-content">
+                                                                        <span class="info-box-number text-center mb-0 badge badge-pill badge-secondary">Name : {{ $item->name }}</span>
+                                                                        <span class="info-box-number text-center mb-0 badge badge-pill badge-primary">Price : {{ $item->price }} $</span>
                                                                     </div>
                                                                 </div>
-                                                            @endif
+                                                            </div>
                                                         @endforeach
                                                     </div>
                                                 </div>
@@ -163,21 +161,19 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="post">
-                                                    <h3>{{ trans('admin.orders') }} ( Accepted )</h3>
+                                                    <h3>{{ trans('admin.orders') }}</h3>
                                                     <div class="row">
                                                         @foreach($orders as $order)
-                                                            @if($order->restaurant_id == $restaurant->id)
-                                                                <div class="col-12 col-sm-4">
-                                                                    <div class="info-box bg-light">
-                                                                        <div class="info-box-content">
-                                                                            <span class="info-box-number text-center text-muted mb-0">Number : {{ $order->id }}</span>
-                                                                            <span class="info-box-number text-center text-muted mb-0">Cost : {{ $order->cost }} $</span>
-                                                                            <span class="info-box-number text-center text-muted mb-0">Total : {{ $order->total }} $</span>
-                                                                            <span class="info-box-number text-center mb-0 badge badge-pill badge-{{ $order->status == 'completed' ? 'success' : 'warning' }}">Status : {{ $order->status }}</span>
-                                                                        </div>
+                                                            <div class="col-12 col-sm-4">
+                                                                <div class="info-box bg-light">
+                                                                    <div class="info-box-content">
+                                                                        <span class="info-box-number text-center text-muted mb-0">Number : {{ $order->id }}</span>
+                                                                        <span class="info-box-number text-center text-muted mb-0">Cost : {{ $order->cost }} $</span>
+                                                                        <span class="info-box-number text-center text-muted mb-0">Total : {{ $order->total }} $</span>
+                                                                        <span class="info-box-number text-center mb-0 badge badge-pill badge-{{ $order->status == 'completed' ? 'success' : 'warning' }}">Status : {{ $order->status }}</span>
                                                                     </div>
                                                                 </div>
-                                                            @endif
+                                                            </div>
                                                         @endforeach
                                                     </div>
                                                 </div>

@@ -68,13 +68,13 @@ class MainController extends Controller
             if ($request->has('status')) {
                 $q->where('status', $request->status);
             }
-        })->has('items')->with('region', 'categories')->where('is_active', '1')->paginate(10);
+        })->has('items')->with('region', 'categories')->active()->paginate(10);
         return responseJson(1, 'Success', $restaurants);
     }
 
     public function restaurant(Request $request)
     {
-        $restaurant = Restaurant::with('region', 'categories', 'items')->where('is_active', '1')
+        $restaurant = Restaurant::with('region', 'categories', 'items')->active()
             ->findOrFail($request->restaurant_id);
         return responseJson(1, 'Success', $restaurant);
     }
