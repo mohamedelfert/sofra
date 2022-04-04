@@ -3,67 +3,45 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client;
+use App\Interfaces\ClientRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    private $clientRepository;
+
+    public function __construct(ClientRepositoryInterface $clientRepository)
     {
-        $title = trans('main.clients');
-        $clients = Client::all();
-        return view('admin.clients.index', compact('title', 'clients'));
+        $this->clientRepository = $clientRepository;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Response
-     */
+    public function index()
+    {
+        return $this->clientRepository->getAllClients();
+    }
+
     public function destroy(Request $request)
     {
-        Client::findOrFail($request->id)->delete();
-        toastr()->error(trans('messages.delete'));
-        return back();
+        return $this->clientRepository->deleteClient($request);
     }
 
     public function filter(Request $request)
     {
-        $start_at = date($request->start_at);
-        $end_at = date($request->end_at);
-        $clients = Client::whereBetween('created_at', [$start_at, $end_at])->get();
-        $title = trans('main.clients');
-        return view('admin.clients.index', compact('title', 'clients','start_at','end_at'));
+        return $this->clientRepository->filter($request);
     }
 
     public function activeFilter(Request $request)
     {
-        $id = $request->id;
-        $clients = Client::select('*')->where('is_active',$id)->get();
-        $title = trans('main.clients');
-        return view('admin.clients.index', compact('title', 'clients'));
+        return $this->clientRepository->activeFilter($request);
     }
 
     public function activate($id)
     {
-        $client = Client::findOrFail($id);
-        $client->update(['is_active' => 1]);
-        toastr()->warning(trans('messages.update'));
-        return back();
+        return $this->clientRepository->activate($id);
     }
 
     public function deactivate($id)
     {
-        $client = Client::findOrFail($id);
-        $client->update(['is_active' => 0]);
-        toastr()->warning(trans('messages.update'));
-        return back();
+        return $this->clientRepository->deactivate($id);
     }
 }

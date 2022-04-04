@@ -3,32 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
-use App\Models\Region;
+use App\Interfaces\RegionRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class RegionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    private $regionRepository;
+
+    public function __construct(RegionRepositoryInterface $regionRepository)
     {
-        $title = trans('main.regions');
-        $regions = Region::all();
-        $cities = City::all();
-        return view('admin.regions.index', compact('title', 'regions', 'cities'));
+        $this->regionRepository = $regionRepository;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
+    public function index()
+    {
+        return $this->regionRepository->getAllRegions();
+    }
+
     public function store(Request $request)
     {
         $rules = [
@@ -42,26 +33,9 @@ class RegionController extends Controller
         ];
         $data = $this->validate($request, $rules, $validate_msg);
 
-        try {
-            $data['name'] = $request->name;
-            $data['city_id'] = $request->city_id;
-            Region::create($data);
-
-            toastr()->success(trans('messages.success'));
-            return back();
-
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
-        }
+        return $this->regionRepository->storeRegion($request);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
     public function update(Request $request)
     {
         $id = $request->id;
@@ -76,30 +50,11 @@ class RegionController extends Controller
         ];
         $data = $this->validate($request, $rules, $validate_msg);
 
-        try {
-            $region = Region::findOrFail($id);
-            $data['name'] = $request->name;
-            $data['city_id'] = $request->city_id;
-            $region->update($data);
-
-            toastr()->success(trans('messages.update'));
-            return back();
-
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
-        }
+        return $this->regionRepository->updateRegion($request);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Response
-     */
     public function destroy(Request $request)
     {
-        Region::findOrFail($request->id)->delete();
-        toastr()->error(trans('messages.delete'));
-        return back();
+        return $this->regionRepository->deleteRegion($request);
     }
 }

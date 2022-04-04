@@ -3,32 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Restaurant;
-use App\Models\Transaction;
+use App\Interfaces\TransactionRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    private $transactionRepository;
+
+    public function __construct(TransactionRepositoryInterface $transactionRepository)
     {
-        $title = trans('main.transactions');
-        $transactions = Transaction::all();
-        $restaurants = Restaurant::all();
-        return view('admin.transactions.index', compact('title', 'transactions', 'restaurants'));
+        $this->transactionRepository = $transactionRepository;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
+    public function index()
+    {
+        return $this->transactionRepository->getAllTransactions();
+    }
+
     public function store(Request $request)
     {
         $rules = [
@@ -47,31 +38,11 @@ class TransactionController extends Controller
         ];
         $data = $this->validate($request, $rules, $validate_msg);
 
-        try {
-            $data['amount'] = $request->amount;
-            $data['restaurant_id'] = $request->restaurant_id;
-            $data['date'] = $request->date;
-            $data['notes'] = $request->notes;
-            Transaction::create($data);
-
-            toastr()->success(trans('messages.success'));
-            return back();
-
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
-        }
+        return $this->transactionRepository->storeTransaction($request);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
     public function update(Request $request)
     {
-        $id = $request->id;
         $rules = [
             'amount' => 'required',
             'restaurant_id' => 'required|exists:restaurants,id',
@@ -88,42 +59,16 @@ class TransactionController extends Controller
         ];
         $data = $this->validate($request, $rules, $validate_msg);
 
-        try {
-            $transaction = Transaction::findOrFail($id);
-            $data['amount'] = $request->amount;
-            $data['restaurant_id'] = $request->restaurant_id;
-            $data['date'] = $request->date;
-            $data['notes'] = $request->notes;
-            $transaction->update($data);
-
-            toastr()->success(trans('messages.update'));
-            return back();
-
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
-        }
+        return $this->transactionRepository->updateTransaction($request);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Response
-     */
     public function destroy(Request $request)
     {
-        Transaction::findOrFail($request->id)->delete();
-        toastr()->error(trans('messages.delete'));
-        return back();
+        return $this->transactionRepository->deleteTransaction($request);
     }
 
     public function filter(Request $request)
     {
-        $start_at = date($request->start_at);
-        $end_at = date($request->end_at);
-        $transactions = Transaction::whereBetween('date', [$start_at, $end_at])->get();
-        $restaurants = Restaurant::all();
-        $title = trans('main.transactions');
-        return view('admin.transactions.index', compact('title', 'transactions', 'restaurants', 'start_at', 'end_at'));
+        return $this->transactionRepository->filter($request);
     }
 }

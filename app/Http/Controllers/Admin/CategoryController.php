@@ -3,30 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Interfaces\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    private $categoryRepository;
+
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
-        $title = trans('main.categories');
-        $categories = Category::all();
-        return view('admin.categories.index', compact('title', 'categories'));
+        $this->categoryRepository = $categoryRepository;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
+    public function index()
+    {
+        return $this->categoryRepository->getAllCategories();
+    }
+
     public function store(Request $request)
     {
         $rules = ['name' => 'required|unique:categories'];
@@ -36,25 +29,9 @@ class CategoryController extends Controller
         ];
         $data = $this->validate($request, $rules, $validate_msg);
 
-        try {
-            $data['name'] = $request->name;
-            Category::create($data);
-
-            toastr()->success(trans('messages.success'));
-            return back();
-
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
-        }
+        return $this->categoryRepository->storeCategory($request);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
     public function update(Request $request)
     {
         $id = $request->id;
@@ -65,29 +42,11 @@ class CategoryController extends Controller
         ];
         $data = $this->validate($request, $rules, $validate_msg);
 
-        try {
-            $category = Category::findOrFail($id);
-            $data['name'] = $request->name;
-            $category->update($data);
-
-            toastr()->warning(trans('messages.update'));
-            return back();
-
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
-        }
+        return $this->categoryRepository->updateCategory($request);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Response
-     */
     public function destroy(Request $request)
     {
-        Category::findOrFail($request->id)->delete();
-        toastr()->error(trans('messages.delete'));
-        return back();
+        return $this->categoryRepository->deleteCategory($request);
     }
 }

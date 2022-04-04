@@ -3,30 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
+use App\Interfaces\CityRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class CityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    private $cityRepository;
+
+    public function __construct(CityRepositoryInterface $cityRepository)
     {
-        $title = trans('main.cities');
-        $cities = City::all();
-        return view('admin.cities.index', compact('title', 'cities'));
+        $this->cityRepository = $cityRepository;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
+    public function index()
+    {
+        return $this->cityRepository->getAllCities();
+    }
+
     public function store(Request $request)
     {
         $rules = ['name' => 'required|unique:cities'];
@@ -36,25 +29,9 @@ class CityController extends Controller
         ];
         $data = $this->validate($request, $rules, $validate_msg);
 
-        try {
-            $data['name'] = $request->name;
-            City::create($data);
-
-            toastr()->success(trans('messages.success'));
-            return back();
-
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
-        }
+        return $this->cityRepository->storeCity($request);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
     public function update(Request $request)
     {
         $id = $request->id;
@@ -65,29 +42,11 @@ class CityController extends Controller
         ];
         $data = $this->validate($request, $rules, $validate_msg);
 
-        try {
-            $city = City::findOrFail($id);
-            $data['name'] = $request->name;
-            $city->update($data);
-
-            toastr()->success(trans('messages.update'));
-            return back();
-
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
-        }
+        return $this->cityRepository->updateCity($request);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Response
-     */
     public function destroy(Request $request)
     {
-        City::findOrFail($request->id)->delete();
-        toastr()->error(trans('messages.delete'));
-        return back();
+        return $this->cityRepository->deleteCity($request);
     }
 }
