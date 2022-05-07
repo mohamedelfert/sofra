@@ -36,4 +36,9 @@ class Client extends Authenticatable
         return $this->morphMany('App\Models\Notification', 'notificationable');
     }
 
+    public function tokens()
+    {
+        return $this->morphMany('App\Models\Token', 'tokenable');
+    }
+
 }

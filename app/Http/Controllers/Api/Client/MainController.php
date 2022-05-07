@@ -85,8 +85,8 @@ class MainController extends Controller
             ]);
 
             // Send Notification To Mobile By Using Firebase ( google FCM )
-//            $tokens = $request->ids;
-            $tokens = ['0' => 'fSamI-TDQFCmAoZCBaMhmE:APA91bFAo08rPwdMHDNyu7qR2Vyizksg60FsmTtkRgAWyK9mjunqQci8EjLMaQsoMBJHz9xVCcIlccn4wHmw9EZKgz_4Gq_UwumZptGS62YiJJNppuY1kebDZH24MV6j4mqifU6-eoN8'];
+            $tokens = $restaurant->tokens()->where('token','!=',null)->pluck('token')->toArray();
+            //$tokens = ['0' => 'fSamI-TDQFCmAoZCBaMhmE:APA91bFAo08rPwdMHDNyu7qR2Vyizksg60FsmTtkRgAWyK9mjunqQci8EjLMaQsoMBJHz9xVCcIlccn4wHmw9EZKgz_4Gq_UwumZptGS62YiJJNppuY1kebDZH24MV6j4mqifU6-eoN8'];
             $title = $notification->title;
             $body = $notification->content;
             $data = [
@@ -166,7 +166,8 @@ class MainController extends Controller
         ]);
 
         // Send Notification To Mobile By Using Firebase ( google FCM )
-        $tokens = ['0' => 'fSamI-TDQFCmAoZCBaMhmE:APA91bFAo08rPwdMHDNyu7qR2Vyizksg60FsmTtkRgAWyK9mjunqQci8EjLMaQsoMBJHz9xVCcIlccn4wHmw9EZKgz_4Gq_UwumZptGS62YiJJNppuY1kebDZH24MV6j4mqifU6-eoN8'];
+        $tokens = $restaurant->tokens()->where('token','!=',null)->pluck('token')->toArray();
+        //$tokens = ['0' => 'fSamI-TDQFCmAoZCBaMhmE:APA91bFAo08rPwdMHDNyu7qR2Vyizksg60FsmTtkRgAWyK9mjunqQci8EjLMaQsoMBJHz9xVCcIlccn4wHmw9EZKgz_4Gq_UwumZptGS62YiJJNppuY1kebDZH24MV6j4mqifU6-eoN8'];
         $title = $notification->title;
         $body = $notification->content;
         $data = [
@@ -208,7 +209,8 @@ class MainController extends Controller
         ]);
 
         // Send Notification To Mobile By Using Firebase ( google FCM )
-        $tokens = ['0' => 'fSamI-TDQFCmAoZCBaMhmE:APA91bFAo08rPwdMHDNyu7qR2Vyizksg60FsmTtkRgAWyK9mjunqQci8EjLMaQsoMBJHz9xVCcIlccn4wHmw9EZKgz_4Gq_UwumZptGS62YiJJNppuY1kebDZH24MV6j4mqifU6-eoN8'];
+        $tokens = $restaurant->tokens()->where('token','!=',null)->pluck('token')->toArray();
+        //$tokens = ['0' => 'fSamI-TDQFCmAoZCBaMhmE:APA91bFAo08rPwdMHDNyu7qR2Vyizksg60FsmTtkRgAWyK9mjunqQci8EjLMaQsoMBJHz9xVCcIlccn4wHmw9EZKgz_4Gq_UwumZptGS62YiJJNppuY1kebDZH24MV6j4mqifU6-eoN8'];
         $title = $notification->title;
         $body = $notification->content;
         $data = [
